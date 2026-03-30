@@ -26,21 +26,35 @@ class ReversalViewModel(
 
     fun onAction(action: ReversalAction) {
         when (action) {
+            is ReversalAction.OnReasonChange -> {
+                _state.update { it.copy(reason = action.reason) }
+            }
             is ReversalAction.OnConfirmReversalClick -> requestReversal()
-            is ReversalAction.OnBackClick -> {
+            is ReversalAction.OnBackClick, ReversalAction.OnCancelClick -> {
                 viewModelScope.launch { _events.send(ReversalEvent.NavigateBack) }
             }
         }
     }
 
     private fun loadTransactionSummary() {
-        // TODO: load transaction summary for display
+        // TODO: replace with real data loading from Repository
+        _state.update {
+            it.copy(
+                recipientName = "Campus Bookstore",
+                recipientAvatarUrl = "https://lh3.googleusercontent.com/aida-public/AB6AXuDh1-F7KTnhmKq8zImNfVia-I6ffjmENav8c_GCSsqCYzIyXUrtRANgsDvygEMCrXe6Ftt-nO6NYMe9LVgka6AsvvUy7WlkbAIHKryxy8gmUaRzZwKLauW6yY_tXJU68hh0kiCJ5gcWFFVs7bCSk5mL1eQcMQz0836aHvRxSPA5pJTvgHBMegK8pQBHfoz5wYcVlcnsaS92_0RtAbAlLmdecbdMSexvW8VKFn_dmjY9caiD59MaA_4xoUDR4KqigbZSohOrrQQRKiI",
+                amountKes = "42.50",
+                dateFormatted = "Today, 11:42 AM",
+                timeRemainingSeconds = 534 // 08:54 equivalent
+            )
+        }
     }
 
     private fun requestReversal() {
         // TODO: inject and call RequestReversalUseCase
         viewModelScope.launch {
             _state.update { it.copy(isLoading = true) }
+            // Mock network delay
+            kotlinx.coroutines.delay(1500)
             _state.update { it.copy(isLoading = false, isSubmitted = true) }
             _events.send(ReversalEvent.NavigateBack)
         }

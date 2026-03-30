@@ -8,7 +8,7 @@ androidx-appcompat = "1.7.0"
 androidx-core = "1.15.0"
 androidx-espresso = "3.6.1"
 androidx-lifecycle = "2.8.4"
-androidx-navigation = "2.8.5"
+androidx-navigation = "2.8.0-alpha10"
 androidx-testExt = "1.2.1"
 bcrypt = "0.10.2"
 coil = "3.0.4"
@@ -43,7 +43,7 @@ androidx-core-ktx = { module = "androidx.core:core-ktx", version.ref = "androidx
 androidx-espresso-core = { module = "androidx.test.espresso:espresso-core", version.ref = "androidx-espresso" }
 androidx-lifecycle-viewmodelCompose = { module = "org.jetbrains.androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "androidx-lifecycle" }
 androidx-lifecycle-runtimeCompose = { module = "org.jetbrains.androidx.lifecycle:lifecycle-runtime-compose", version.ref = "androidx-lifecycle" }
-androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "androidx-navigation" }
+androidx-navigation-compose = { module = "org.jetbrains.androidx.navigation:navigation-compose", version.ref = "androidx-navigation" }
 androidx-testExt-junit = { module = "androidx.test.ext:junit", version.ref = "androidx-testExt" }
 
 # Compose Multiplatform

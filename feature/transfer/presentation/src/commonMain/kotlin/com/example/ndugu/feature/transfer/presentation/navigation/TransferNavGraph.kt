@@ -3,7 +3,7 @@ package com.example.ndugu.feature.transfer.presentation.navigation
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
-import androidx.navigation.navigation
+import androidx.navigation.compose.navigation
 import androidx.navigation.toRoute
 import com.example.ndugu.feature.transfer.presentation.contactpicker.ContactPickerRoot
 import com.example.ndugu.feature.transfer.presentation.reversal.ReversalRoot
