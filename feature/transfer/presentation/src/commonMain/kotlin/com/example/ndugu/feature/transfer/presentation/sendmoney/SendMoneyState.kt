@@ -17,6 +17,8 @@ data class SendMoneyState(
 sealed interface SendMoneyAction {
     data class OnAmountChange(val amount: String) : SendMoneyAction
     data class OnMemoChange(val memo: String) : SendMoneyAction
+    data class OnKeypadDigit(val digit: String) : SendMoneyAction
+    data object OnKeypadBackspace : SendMoneyAction
     data object OnReviewClick : SendMoneyAction
     data object OnConfirmSendClick : SendMoneyAction
     data object OnEditClick : SendMoneyAction

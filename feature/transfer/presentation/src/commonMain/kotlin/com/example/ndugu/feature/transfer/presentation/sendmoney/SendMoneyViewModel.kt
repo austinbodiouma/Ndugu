@@ -30,6 +30,25 @@ class SendMoneyViewModel(
 
     fun onAction(action: SendMoneyAction) {
         when (action) {
+            is SendMoneyAction.OnKeypadDigit -> _state.update { 
+                val current = it.amountKes
+                if (current == "0.00" || current == "0") {
+                    it.copy(amountKes = action.digit)
+                } else {
+                    // Prevent multiple dots and limit to 2 decimal places
+                    if (action.digit == "." && current.contains(".")) return@update it
+                    if (current.contains(".") && current.substringAfter(".").length >= 2) return@update it
+                    it.copy(amountKes = current + action.digit)
+                }
+            }
+            is SendMoneyAction.OnKeypadBackspace -> _state.update {
+                val current = it.amountKes
+                if (current.length <= 1) {
+                    it.copy(amountKes = "0.00")
+                } else {
+                    it.copy(amountKes = current.dropLast(1))
+                }
+            }
             is SendMoneyAction.OnAmountChange -> _state.update {
                 it.copy(amountKes = action.amount, amountError = null)
             }

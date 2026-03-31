@@ -5,6 +5,7 @@ import com.example.ndugu.core.presentation.UiText
 data class ContactPickerState(
     val searchQuery: String = "",
     val contacts: List<ContactUi> = emptyList(),
+    val frequentContacts: List<ContactUi> = emptyList(),
     val isLoading: Boolean = false,
     val error: UiText? = null,
 )

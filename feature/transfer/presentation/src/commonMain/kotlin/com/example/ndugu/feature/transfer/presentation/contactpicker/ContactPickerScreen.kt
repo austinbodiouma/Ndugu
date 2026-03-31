@@ -1,35 +1,42 @@
 package com.example.ndugu.feature.transfer.presentation.contactpicker
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.filled.ChevronRight
 import androidx.compose.material.icons.filled.Search
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.SearchBar
-import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
-import androidx.compose.material3.TopAppBar
+import androidx.compose.material.icons.outlined.AccountBalanceWallet
+import androidx.compose.material.icons.outlined.CompareArrows
+import androidx.compose.material.icons.outlined.GridView
+import androidx.compose.material.icons.outlined.Person
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import coil3.compose.AsyncImage
+import com.example.ndugu.core.designsystem.theme.CWPremiumSurface
+import com.example.ndugu.core.designsystem.theme.CWPremiumTeal
+import com.example.ndugu.core.designsystem.theme.CWPremiumTealContainer
 import com.example.ndugu.core.presentation.ObserveAsEvents
 import org.koin.compose.viewmodel.koinViewModel
 
@@ -65,94 +72,403 @@ fun ContactPickerScreen(
 ) {
     Scaffold(
         topBar = {
-            TopAppBar(
-                title = { Text("Send Money To") },
-                navigationIcon = {
-                    IconButton(onClick = { onAction(ContactPickerAction.OnBackClick) }) {
-                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back")
-                    }
-                },
-            )
+            ContactPickerTopBar(onBackClick = { onAction(ContactPickerAction.OnBackClick) })
         },
+        bottomBar = {
+            ContactPickerBottomBar()
+        },
+        containerColor = CWPremiumSurface
     ) { innerPadding ->
-        Column(
+        LazyColumn(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(innerPadding)
-                .padding(horizontal = 16.dp),
+                .padding(innerPadding),
+            contentPadding = PaddingValues(bottom = 16.dp)
         ) {
-            // Search Bar
-            SearchBar(
-                inputField = {
-                    androidx.compose.material3.SearchBarDefaults.InputField(
-                        query = state.searchQuery,
-                        onQueryChange = { onAction(ContactPickerAction.OnSearchQueryChange(it)) },
-                        onSearch = {},
-                        expanded = false,
-                        onExpandedChange = {},
-                        placeholder = { Text("Search name or phone number") },
-                        leadingIcon = { Icon(Icons.Default.Search, contentDescription = null) },
-                    )
-                },
-                expanded = false,
-                onExpandedChange = {},
-            ) {}
-
-            Spacer(Modifier.height(8.dp))
-
-            TextButton(
-                onClick = { onAction(ContactPickerAction.OnManualEntryClick) },
-                modifier = Modifier.fillMaxWidth(),
-            ) {
-                Text("Enter phone number manually")
+            item {
+                ContactPickerSearchBar(
+                    query = state.searchQuery,
+                    onQueryChange = { onAction(ContactPickerAction.OnSearchQueryChange(it)) }
+                )
             }
 
-            Spacer(Modifier.height(8.dp))
-            Text("Contacts on CampusWallet", style = MaterialTheme.typography.labelMedium)
-            Spacer(Modifier.height(8.dp))
+            item {
+                FrequentContactsSection(
+                    contacts = state.frequentContacts,
+                    onContactClick = { onAction(ContactPickerAction.OnContactSelected(it)) }
+                )
+            }
 
-            LazyColumn {
-                items(state.contacts, key = { it.phone }) { contact ->
-                    ContactItem(
-                        contact = contact,
-                        onClick = { onAction(ContactPickerAction.OnContactSelected(contact)) },
+            item {
+                SectionHeader(
+                    title = "All CampusWallet Contacts",
+                    trailingIcon = {
+                        Icon(
+                            imageVector = Icons.Default.Search, // Using Search as a placeholder for sort
+                            contentDescription = "Sort",
+                            tint = MaterialTheme.colorScheme.outline,
+                            modifier = Modifier.size(20.dp)
+                        )
+                    }
+                )
+            }
+
+            items(state.contacts) { contact ->
+                ContactItem(
+                    contact = contact,
+                    onClick = { onAction(ContactPickerAction.OnContactSelected(contact)) }
+                )
+            }
+        }
+    }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+private fun ContactPickerTopBar(onBackClick: () -> Unit) {
+    TopAppBar(
+        title = {
+            Column {
+                Text(
+                    text = "Send Money",
+                    style = MaterialTheme.typography.titleLarge.copy(
+                        fontWeight = FontWeight.Bold,
+                        color = CWPremiumTeal
                     )
-                }
+                )
+                Text(
+                    text = "STEP 1 OF 3",
+                    style = MaterialTheme.typography.labelSmall.copy(
+                        letterSpacing = 1.sp,
+                        fontWeight = FontWeight.ExtraBold,
+                        color = Color.Gray
+                    )
+                )
+            }
+        },
+        navigationIcon = {
+            IconButton(onClick = onBackClick) {
+                Icon(
+                    imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                    contentDescription = "Back",
+                    tint = CWPremiumTeal
+                )
+            }
+        },
+        colors = TopAppBarDefaults.topAppBarColors(
+            containerColor = CWPremiumSurface
+        )
+    )
+}
+
+@Composable
+private fun ContactPickerSearchBar(
+    query: String,
+    onQueryChange: (String) -> Unit
+) {
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 24.dp, vertical = 16.dp)
+            .background(
+                color = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f),
+                shape = RoundedCornerShape(16.dp)
+            )
+            .padding(horizontal = 16.dp, vertical = 12.dp)
+    ) {
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            Icon(
+                imageVector = Icons.Default.Search,
+                contentDescription = null,
+                tint = MaterialTheme.colorScheme.outline
+            )
+            Spacer(Modifier.width(12.dp))
+            TextField(
+                value = query,
+                onValueChange = onQueryChange,
+                placeholder = {
+                    Text(
+                        "Search name or enter phone number",
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = MaterialTheme.colorScheme.outline
+                    )
+                },
+                modifier = Modifier.fillMaxWidth(),
+                colors = TextFieldDefaults.colors(
+                    focusedContainerColor = Color.Transparent,
+                    unfocusedContainerColor = Color.Transparent,
+                    disabledContainerColor = Color.Transparent,
+                    focusedIndicatorColor = Color.Transparent,
+                    unfocusedIndicatorColor = Color.Transparent,
+                ),
+                singleLine = true
+            )
+        }
+    }
+}
+
+@Composable
+private fun SectionHeader(
+    title: String,
+    trailingLabel: String? = null,
+    trailingIcon: @Composable (() -> Unit)? = null
+) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 24.dp, vertical = 16.dp),
+        horizontalArrangement = Arrangement.SpaceBetween,
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Text(
+            text = title,
+            style = MaterialTheme.typography.titleMedium.copy(
+                fontWeight = FontWeight.Bold,
+                fontSize = 20.sp
+            )
+        )
+        if (trailingLabel != null) {
+            Box(
+                modifier = Modifier
+                    .background(
+                        color = MaterialTheme.colorScheme.primaryContainer,
+                        shape = CircleShape
+                    )
+                    .padding(horizontal = 12.dp, vertical = 4.dp)
+            ) {
+                Text(
+                    text = trailingLabel,
+                    style = MaterialTheme.typography.labelSmall.copy(
+                        color = MaterialTheme.colorScheme.primary,
+                        fontWeight = FontWeight.Bold
+                    )
+                )
+            }
+        }
+        trailingIcon?.invoke()
+    }
+}
+
+@Composable
+private fun FrequentContactsSection(
+    contacts: List<ContactUi>,
+    onContactClick: (ContactUi) -> Unit
+) {
+    Column {
+        SectionHeader(title = "Frequent Contacts", trailingLabel = "Recent")
+        LazyRow(
+            contentPadding = PaddingValues(horizontal = 24.dp),
+            horizontalArrangement = Arrangement.spacedBy(24.dp)
+        ) {
+            items(contacts) { contact ->
+                FrequentContactItem(contact = contact, onClick = { onContactClick(contact) })
             }
         }
     }
 }
 
 @Composable
+private fun FrequentContactItem(
+    contact: ContactUi,
+    onClick: () -> Unit
+) {
+    Column(
+        modifier = Modifier
+            .width(64.dp)
+            .clickable(onClick = onClick),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.spacedBy(8.dp)
+    ) {
+        Box(
+            modifier = Modifier
+                .size(64.dp)
+                .then(
+                    if (contact.avatarUrl != null) {
+                        Modifier.border(
+                            width = 2.dp,
+                            brush = Brush.sweepGradient(
+                                listOf(CWPremiumTeal, MaterialTheme.colorScheme.secondary)
+                            ),
+                            shape = CircleShape
+                        )
+                    } else {
+                        Modifier
+                    }
+                )
+                .padding(4.dp)
+        ) {
+            if (contact.avatarUrl != null) {
+                AsyncImage(
+                    model = contact.avatarUrl,
+                    contentDescription = contact.displayName,
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .clip(CircleShape),
+                    contentScale = ContentScale.Crop
+                )
+            } else {
+                Box(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .background(
+                            color = MaterialTheme.colorScheme.tertiaryContainer,
+                            shape = CircleShape
+                        ),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Text(
+                        text = contact.displayName.take(2).uppercase(),
+                        style = MaterialTheme.typography.titleLarge.copy(
+                            fontWeight = FontWeight.Bold,
+                            color = MaterialTheme.colorScheme.onTertiaryContainer
+                        )
+                    )
+                }
+            }
+        }
+        Text(
+            text = contact.displayName.split(" ").first(),
+            style = MaterialTheme.typography.labelMedium.copy(fontWeight = FontWeight.Bold),
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis,
+            textAlign = TextAlign.Center
+        )
+    }
+}
+
+@Composable
 private fun ContactItem(
     contact: ContactUi,
-    onClick: () -> Unit,
+    onClick: () -> Unit
 ) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
+            .padding(horizontal = 24.dp, vertical = 6.dp)
+            .background(
+                color = MaterialTheme.colorScheme.surfaceContainerLowest,
+                shape = RoundedCornerShape(12.dp)
+            )
             .clickable(onClick = onClick)
-            .padding(vertical = 12.dp),
-        horizontalArrangement = Arrangement.spacedBy(12.dp),
+            .padding(16.dp),
         verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.spacedBy(16.dp)
     ) {
-        // TODO: avatar — use Coil async image
-        Column(modifier = Modifier.size(40.dp)) { /* avatar placeholder */ }
+        if (contact.avatarUrl != null) {
+            AsyncImage(
+                model = contact.avatarUrl,
+                contentDescription = contact.displayName,
+                modifier = Modifier
+                    .size(48.dp)
+                    .clip(CircleShape),
+                contentScale = ContentScale.Crop
+            )
+        } else {
+            Box(
+                modifier = Modifier
+                    .size(48.dp)
+                    .background(
+                        color = MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.5f),
+                        shape = CircleShape
+                    ),
+                contentAlignment = Alignment.Center
+            ) {
+                Text(
+                    text = contact.displayName.split(" ").map { it.take(1) }.joinToString("").take(2).uppercase(),
+                    style = MaterialTheme.typography.titleMedium.copy(
+                        fontWeight = FontWeight.Bold,
+                        color = MaterialTheme.colorScheme.primary
+                    )
+                )
+            }
+        }
 
         Column(modifier = Modifier.weight(1f)) {
-            Text(contact.displayName, style = MaterialTheme.typography.bodyLarge)
+            Text(
+                text = contact.displayName,
+                style = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.SemiBold)
+            )
             Text(
                 text = contact.phone,
-                style = MaterialTheme.typography.bodySmall,
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                style = MaterialTheme.typography.bodySmall.copy(
+                    color = MaterialTheme.colorScheme.outline,
+                    fontWeight = FontWeight.Medium
+                )
             )
         }
 
-        if (contact.isOnCampusWallet) {
+        Icon(
+            imageVector = Icons.Default.ChevronRight,
+            contentDescription = null,
+            tint = MaterialTheme.colorScheme.outline
+        )
+    }
+}
+
+@Composable
+private fun ContactPickerBottomBar() {
+    Surface(
+        modifier = Modifier
+            .fillMaxWidth()
+            .clip(RoundedCornerShape(topStart = 32.dp, topEnd = 32.dp)),
+        color = CWPremiumSurface,
+        shadowElevation = 8.dp
+    ) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 16.dp, vertical = 12.dp),
+            horizontalArrangement = Arrangement.SpaceAround,
+            verticalAlignment = Alignment.Bottom
+        ) {
+            BottomNavItem(icon = Icons.Outlined.GridView, label = "Home")
+            BottomNavItem(
+                icon = Icons.Outlined.CompareArrows,
+                label = "Payments",
+                isActive = true
+            )
+            BottomNavItem(icon = Icons.Outlined.AccountBalanceWallet, label = "Wallet")
+            BottomNavItem(icon = Icons.Outlined.Person, label = "Profile")
+        }
+    }
+}
+
+@Composable
+private fun BottomNavItem(
+    icon: ImageVector,
+    label: String,
+    isActive: Boolean = false
+) {
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center,
+        modifier = Modifier
+            .then(
+                if (isActive) {
+                    Modifier
+                        .offset(y = (-8).dp)
+                        .background(CWPremiumTealContainer, CircleShape)
+                        .padding(12.dp)
+                } else {
+                    Modifier.padding(8.dp)
+                }
+            )
+            .clickable { /* Handle Nav */ }
+    ) {
+        Icon(
+            imageVector = icon,
+            contentDescription = label,
+            tint = if (isActive) Color.White else MaterialTheme.colorScheme.outline,
+            modifier = Modifier.size(24.dp)
+        )
+        if (!isActive) {
             Text(
-                text = "CW",
-                style = MaterialTheme.typography.labelSmall,
-                color = MaterialTheme.colorScheme.primary,
+                text = label,
+                style = MaterialTheme.typography.labelSmall.copy(
+                    fontSize = 11.sp,
+                    fontWeight = FontWeight.SemiBold
+                ),
+                color = MaterialTheme.colorScheme.outline
             )
         }
     }
