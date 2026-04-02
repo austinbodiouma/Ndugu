@@ -1,5 +1,6 @@
 package com.example.ndugu.feature.auth.presentation.otp
 
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
@@ -25,8 +26,8 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.ndugu.core.designsystem.components.CWGradientButton
 import com.example.ndugu.core.designsystem.components.OtpInputField
-import com.example.ndugu.core.designsystem.theme.CWPremiumSurface
-import com.example.ndugu.core.designsystem.theme.CWPremiumTeal
+import com.example.ndugu.core.designsystem.theme.MaterialTheme.colorScheme.surface
+import com.example.ndugu.core.designsystem.theme.MaterialTheme.colorScheme.primary
 import com.example.ndugu.core.presentation.ObserveAsEvents
 import org.koin.compose.viewmodel.koinViewModel
 
@@ -64,7 +65,7 @@ fun OtpVerifyScreen(
                         text = "CampusWallet",
                         style = MaterialTheme.typography.titleLarge.copy(
                             fontWeight = FontWeight.Bold,
-                            color = CWPremiumTeal
+                            color = MaterialTheme.colorScheme.primary
                         )
                     )
                 },
@@ -73,16 +74,16 @@ fun OtpVerifyScreen(
                         Icon(
                             imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                             contentDescription = "Back",
-                            tint = CWPremiumTeal
+                            tint = MaterialTheme.colorScheme.primary
                         )
                     }
                 },
                 colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = CWPremiumSurface
+                    containerColor = MaterialTheme.colorScheme.surface
                 )
             )
         },
-        containerColor = CWPremiumSurface
+        containerColor = MaterialTheme.colorScheme.surface
     ) { padding ->
         Column(
             modifier = Modifier
@@ -115,7 +116,7 @@ fun OtpVerifyScreen(
                             fontWeight = FontWeight.Bold,
                             letterSpacing = 1.sp
                         ),
-                        color = CWPremiumTeal
+                        color = MaterialTheme.colorScheme.primary
                     )
                 }
                 Spacer(Modifier.height(8.dp))
@@ -125,7 +126,7 @@ fun OtpVerifyScreen(
                         .fillMaxWidth()
                         .height(6.dp)
                         .clip(CircleShape),
-                    color = CWPremiumTeal,
+                    color = MaterialTheme.colorScheme.primary,
                     trackColor = MaterialTheme.colorScheme.surfaceVariant
                 )
             }
@@ -164,7 +165,7 @@ fun OtpVerifyScreen(
                     text = "Change number?",
                     style = MaterialTheme.typography.bodyLarge.copy(
                         fontWeight = FontWeight.SemiBold,
-                        color = CWPremiumTeal
+                        color = MaterialTheme.colorScheme.primary
                     )
                 )
             }
@@ -195,7 +196,7 @@ fun OtpVerifyScreen(
                         imageVector = Icons.Default.Star,
                         contentDescription = null,
                         modifier = Modifier.size(16.dp),
-                        tint = CWPremiumTeal
+                        tint = MaterialTheme.colorScheme.primary
                     )
                     Text(
                         text = if (state.canResend) "Resend code now" 
@@ -207,7 +208,7 @@ fun OtpVerifyScreen(
                         Text(
                             text = "yitf",
                             style = MaterialTheme.typography.labelMedium.copy(fontWeight = FontWeight.Bold),
-                            color = CWPremiumTeal
+                            color = MaterialTheme.colorScheme.primary
                         )
                     }
                 }

@@ -1,5 +1,6 @@
 package com.example.ndugu.feature.wallet.presentation.history
 
+import com.example.ndugu.core.designsystem.theme.CampusWalletTheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
@@ -17,7 +18,7 @@ private val sampleTransactions = listOf(
 @Preview(name = "Transaction History — Loaded", showBackground = true)
 @Composable
 private fun TransactionHistoryScreenPreview() {
-    MaterialTheme {
+    CampusWalletTheme {
         TransactionHistoryScreen(
             state = TransactionHistoryState(transactions = sampleTransactions),
             onAction = {},
@@ -28,7 +29,7 @@ private fun TransactionHistoryScreenPreview() {
 @Preview(name = "Transaction History — Empty", showBackground = true)
 @Composable
 private fun TransactionHistoryScreenEmptyPreview() {
-    MaterialTheme {
+    CampusWalletTheme {
         TransactionHistoryScreen(
             state = TransactionHistoryState(transactions = emptyList()),
             onAction = {},

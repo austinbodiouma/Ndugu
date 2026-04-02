@@ -1,5 +1,6 @@
 package com.example.ndugu.feature.transfer.presentation.reversal
 
+import com.example.ndugu.core.designsystem.theme.CampusWalletTheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
@@ -7,7 +8,7 @@ import androidx.compose.ui.tooling.preview.Preview
 @Preview(name = "Reversal — Confirm", showBackground = true)
 @Composable
 private fun ReversalScreenPreview() {
-    MaterialTheme {
+    CampusWalletTheme {
         ReversalScreen(
             state = ReversalState(
                 transactionId = "tx-001",
@@ -22,7 +23,7 @@ private fun ReversalScreenPreview() {
 @Preview(name = "Reversal — Loading", showBackground = true)
 @Composable
 private fun ReversalScreenLoadingPreview() {
-    MaterialTheme {
+    CampusWalletTheme {
         ReversalScreen(
             state = ReversalState(
                 transactionId = "tx-001",

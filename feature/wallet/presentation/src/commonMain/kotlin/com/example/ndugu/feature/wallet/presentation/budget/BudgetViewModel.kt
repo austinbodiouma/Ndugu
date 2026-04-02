@@ -25,9 +25,62 @@ class BudgetViewModel : ViewModel() {
             is BudgetAction.OnBackClick -> {
                 viewModelScope.launch { _events.send(BudgetEvent.NavigateBack) }
             }
-            is BudgetAction.OnEditBudget -> { /* open bottom sheet / dialog */ }
+            is BudgetAction.OnEditBudget -> {
+                _state.update { it.copy(
+                    isAddEditSheetOpen = true,
+                    addEditForm = BudgetFormState(
+                        id = action.budget.category,
+                        category = action.budget.category,
+                        amount = action.budget.budgetKes.replace(",", ""),
+                        isAlertEnabled = true, // Default
+                        isRenewEnabled = false // Default
+                    )
+                ) }
+            }
             is BudgetAction.OnSetBudget -> setBudget(action.category, action.amountKes)
+            
+            BudgetAction.OnAddBudgetClick -> {
+                _state.update { it.copy(
+                    isAddEditSheetOpen = true,
+                    addEditForm = BudgetFormState()
+                ) }
+            }
+            BudgetAction.OnDismissSheet -> {
+                _state.update { it.copy(isAddEditSheetOpen = false) }
+            }
+            is BudgetAction.OnFormAmountChange -> {
+                _state.update { it.copy(
+                    addEditForm = it.addEditForm.copy(amount = action.amount)
+                ) }
+            }
+            is BudgetAction.OnFormCategorySelect -> {
+                _state.update { it.copy(
+                    addEditForm = it.addEditForm.copy(category = action.category)
+                ) }
+            }
+            is BudgetAction.OnFormAlertToggle -> {
+                _state.update { it.copy(
+                    addEditForm = it.addEditForm.copy(isAlertEnabled = action.enabled)
+                ) }
+            }
+            is BudgetAction.OnFormRenewToggle -> {
+                _state.update { it.copy(
+                    addEditForm = it.addEditForm.copy(isRenewEnabled = action.enabled)
+                ) }
+            }
+            BudgetAction.OnSaveBudget -> {
+                saveBudget()
+            }
         }
+    }
+
+    private fun saveBudget() {
+        val form = _state.value.addEditForm
+        val amount = form.amount.toDoubleOrNull() ?: 0.0
+        val category = form.category ?: return
+        
+        setBudget(category, amount)
+        _state.update { it.copy(isAddEditSheetOpen = false) }
     }
 
     private fun load() {

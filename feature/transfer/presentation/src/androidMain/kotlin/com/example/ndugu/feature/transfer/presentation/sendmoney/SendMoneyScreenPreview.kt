@@ -1,5 +1,6 @@
 package com.example.ndugu.feature.transfer.presentation.sendmoney
 
+import com.example.ndugu.core.designsystem.theme.CampusWalletTheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
@@ -7,7 +8,7 @@ import androidx.compose.ui.tooling.preview.Preview
 @Preview(name = "Send Money — Amount entry step", showBackground = true)
 @Composable
 private fun SendMoneyScreenAmountStepPreview() {
-    MaterialTheme {
+    CampusWalletTheme {
         SendMoneyScreen(
             state = SendMoneyState(
                 recipientPhone = "+254712345678",
@@ -23,7 +24,7 @@ private fun SendMoneyScreenAmountStepPreview() {
 @Preview(name = "Send Money — Confirm step", showBackground = true)
 @Composable
 private fun SendMoneyScreenConfirmStepPreview() {
-    MaterialTheme {
+    CampusWalletTheme {
         SendMoneyScreen(
             state = SendMoneyState(
                 recipientPhone = "+254712345678",
@@ -41,7 +42,7 @@ private fun SendMoneyScreenConfirmStepPreview() {
 @Preview(name = "Send Money — Confirm, no memo", showBackground = true)
 @Composable
 private fun SendMoneyScreenConfirmNoMemoPreview() {
-    MaterialTheme {
+    CampusWalletTheme {
         SendMoneyScreen(
             state = SendMoneyState(
                 recipientPhone = "+254712345678",

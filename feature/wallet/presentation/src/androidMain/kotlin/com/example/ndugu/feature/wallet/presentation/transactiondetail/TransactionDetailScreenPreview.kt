@@ -1,5 +1,6 @@
 package com.example.ndugu.feature.wallet.presentation.transactiondetail
 
+import com.example.ndugu.core.designsystem.theme.CampusWalletTheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
@@ -8,7 +9,7 @@ import com.example.ndugu.feature.wallet.presentation.dashboard.TransactionType
 @Preview(name = "Transaction Detail — Debit, reversible", showBackground = true)
 @Composable
 private fun TransactionDetailDebitPreview() {
-    MaterialTheme {
+    CampusWalletTheme {
         TransactionDetailScreen(
             state = TransactionDetailState(
                 transactionId = "tx-001",
@@ -28,7 +29,7 @@ private fun TransactionDetailDebitPreview() {
 @Preview(name = "Transaction Detail — Credit, not reversible", showBackground = true)
 @Composable
 private fun TransactionDetailCreditPreview() {
-    MaterialTheme {
+    CampusWalletTheme {
         TransactionDetailScreen(
             state = TransactionDetailState(
                 transactionId = "tx-002",

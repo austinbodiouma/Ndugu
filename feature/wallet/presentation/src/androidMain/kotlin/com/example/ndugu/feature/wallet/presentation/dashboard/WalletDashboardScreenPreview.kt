@@ -1,5 +1,6 @@
 package com.example.ndugu.feature.wallet.presentation.dashboard
 
+import com.example.ndugu.core.designsystem.theme.CampusWalletTheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
@@ -42,7 +43,7 @@ private val sampleTransactions = listOf(
 @Preview(name = "Wallet Dashboard — Loaded", showBackground = true)
 @Composable
 private fun WalletDashboardScreenPreview() {
-    MaterialTheme {
+    CampusWalletTheme {
         WalletDashboardScreen(
             state = WalletDashboardState(
                 balanceKes = "4,380.00",
@@ -58,7 +59,7 @@ private fun WalletDashboardScreenPreview() {
 @Preview(name = "Wallet Dashboard — Balance hidden", showBackground = true)
 @Composable
 private fun WalletDashboardScreenHiddenPreview() {
-    MaterialTheme {
+    CampusWalletTheme {
         WalletDashboardScreen(
             state = WalletDashboardState(
                 balanceKes = "4,380.00",
@@ -74,7 +75,7 @@ private fun WalletDashboardScreenHiddenPreview() {
 @Preview(name = "Wallet Dashboard — Empty", showBackground = true)
 @Composable
 private fun WalletDashboardScreenEmptyPreview() {
-    MaterialTheme {
+    CampusWalletTheme {
         WalletDashboardScreen(
             state = WalletDashboardState(
                 balanceKes = "0.00",

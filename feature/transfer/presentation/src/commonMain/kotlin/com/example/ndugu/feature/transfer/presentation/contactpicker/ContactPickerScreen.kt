@@ -1,5 +1,6 @@
 package com.example.ndugu.feature.transfer.presentation.contactpicker
 
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -34,9 +35,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil3.compose.AsyncImage
-import com.example.ndugu.core.designsystem.theme.CWPremiumSurface
-import com.example.ndugu.core.designsystem.theme.CWPremiumTeal
-import com.example.ndugu.core.designsystem.theme.CWPremiumTealContainer
 import com.example.ndugu.core.presentation.ObserveAsEvents
 import org.koin.compose.viewmodel.koinViewModel
 
@@ -77,7 +75,7 @@ fun ContactPickerScreen(
         bottomBar = {
             ContactPickerBottomBar()
         },
-        containerColor = CWPremiumSurface
+        containerColor = MaterialTheme.colorScheme.surface
     ) { innerPadding ->
         LazyColumn(
             modifier = Modifier
@@ -133,7 +131,7 @@ private fun ContactPickerTopBar(onBackClick: () -> Unit) {
                     text = "Send Money",
                     style = MaterialTheme.typography.titleLarge.copy(
                         fontWeight = FontWeight.Bold,
-                        color = CWPremiumTeal
+                        color = MaterialTheme.colorScheme.primary
                     )
                 )
                 Text(
@@ -151,12 +149,12 @@ private fun ContactPickerTopBar(onBackClick: () -> Unit) {
                 Icon(
                     imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                     contentDescription = "Back",
-                    tint = CWPremiumTeal
+                    tint = MaterialTheme.colorScheme.primary
                 )
             }
         },
         colors = TopAppBarDefaults.topAppBarColors(
-            containerColor = CWPremiumSurface
+            containerColor = MaterialTheme.colorScheme.surface
         )
     )
 }
@@ -287,7 +285,7 @@ private fun FrequentContactItem(
                         Modifier.border(
                             width = 2.dp,
                             brush = Brush.sweepGradient(
-                                listOf(CWPremiumTeal, MaterialTheme.colorScheme.secondary)
+                                listOf(MaterialTheme.colorScheme.primary, MaterialTheme.colorScheme.secondary)
                             ),
                             shape = CircleShape
                         )
@@ -411,7 +409,7 @@ private fun ContactPickerBottomBar() {
         modifier = Modifier
             .fillMaxWidth()
             .clip(RoundedCornerShape(topStart = 32.dp, topEnd = 32.dp)),
-        color = CWPremiumSurface,
+        color = MaterialTheme.colorScheme.surface,
         shadowElevation = 8.dp
     ) {
         Row(
@@ -447,7 +445,7 @@ private fun BottomNavItem(
                 if (isActive) {
                     Modifier
                         .offset(y = (-8).dp)
-                        .background(CWPremiumTealContainer, CircleShape)
+                        .background(MaterialTheme.colorScheme.primaryContainer, CircleShape)
                         .padding(12.dp)
                 } else {
                     Modifier.padding(8.dp)

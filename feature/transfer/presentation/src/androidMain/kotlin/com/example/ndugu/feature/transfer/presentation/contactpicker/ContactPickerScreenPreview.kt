@@ -1,5 +1,6 @@
 package com.example.ndugu.feature.transfer.presentation.contactpicker
 
+import com.example.ndugu.core.designsystem.theme.CampusWalletTheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
@@ -15,7 +16,7 @@ private val sampleContacts = listOf(
 @Preview(name = "Contact Picker — Loaded", showBackground = true)
 @Composable
 private fun ContactPickerScreenPreview() {
-    MaterialTheme {
+    CampusWalletTheme {
         ContactPickerScreen(
             state = ContactPickerState(contacts = sampleContacts),
             onAction = {},
@@ -26,7 +27,7 @@ private fun ContactPickerScreenPreview() {
 @Preview(name = "Contact Picker — Search active", showBackground = true)
 @Composable
 private fun ContactPickerScreenSearchPreview() {
-    MaterialTheme {
+    CampusWalletTheme {
         ContactPickerScreen(
             state = ContactPickerState(
                 searchQuery = "Brian",
@@ -40,7 +41,7 @@ private fun ContactPickerScreenSearchPreview() {
 @Preview(name = "Contact Picker — Empty list", showBackground = true)
 @Composable
 private fun ContactPickerScreenEmptyPreview() {
-    MaterialTheme {
+    CampusWalletTheme {
         ContactPickerScreen(
             state = ContactPickerState(contacts = emptyList()),
             onAction = {},

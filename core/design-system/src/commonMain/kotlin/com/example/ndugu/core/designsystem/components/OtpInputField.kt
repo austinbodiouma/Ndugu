@@ -17,8 +17,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.ndugu.core.designsystem.theme.CWPremiumOutlineVariant
-import com.example.ndugu.core.designsystem.theme.CWPremiumTeal
+import com.example.ndugu.core.designsystem.theme.CWOutlineVariant
+import com.example.ndugu.core.designsystem.theme.CWPrimary
 
 @Composable
 fun OtpInputField(
@@ -70,8 +70,8 @@ private fun OtpDigitBox(
             .shadow(
                 elevation = 4.dp,
                 shape = RoundedCornerShape(12.dp),
-                ambientColor = CWPremiumTeal.copy(alpha = 0.08f),
-                spotColor = CWPremiumTeal.copy(alpha = 0.08f)
+                ambientColor = CWPrimary.copy(alpha = 0.08f),
+                spotColor = CWPrimary.copy(alpha = 0.08f)
             )
             .background(
                 color = Color.White,
@@ -79,7 +79,7 @@ private fun OtpDigitBox(
             )
             .border(
                 width = if (isFocused) 2.dp else 1.dp,
-                color = if (isFocused) CWPremiumTeal else CWPremiumOutlineVariant,
+                color = if (isFocused) CWPrimary else CWOutlineVariant,
                 shape = RoundedCornerShape(12.dp)
             ),
         contentAlignment = Alignment.Center
@@ -89,7 +89,7 @@ private fun OtpDigitBox(
             style = MaterialTheme.typography.headlineMedium.copy(
                 fontSize = 24.sp,
                 fontWeight = FontWeight.Bold,
-                color = if (char.isNotEmpty()) CWPremiumTeal else CWPremiumOutlineVariant.copy(alpha = 0.5f)
+                color = if (char.isNotEmpty()) CWPrimary else CWOutlineVariant.copy(alpha = 0.5f)
             )
         )
         if (char.isEmpty() && !isFocused) {
@@ -98,7 +98,7 @@ private fun OtpDigitBox(
                 style = MaterialTheme.typography.headlineMedium.copy(
                     fontSize = 24.sp,
                     fontWeight = FontWeight.Bold,
-                    color = CWPremiumOutlineVariant.copy(alpha = 0.3f)
+                    color = CWOutlineVariant.copy(alpha = 0.3f)
                 )
             )
         }

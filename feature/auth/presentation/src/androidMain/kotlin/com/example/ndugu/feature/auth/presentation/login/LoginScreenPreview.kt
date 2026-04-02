@@ -1,5 +1,6 @@
 package com.example.ndugu.feature.auth.presentation.login
 
+import com.example.ndugu.core.designsystem.theme.CampusWalletTheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
@@ -7,7 +8,7 @@ import androidx.compose.ui.tooling.preview.Preview
 @Preview(name = "Login — Empty", showBackground = true)
 @Composable
 private fun LoginScreenEmptyPreview() {
-    MaterialTheme {
+    CampusWalletTheme {
         LoginScreen(
             state = LoginState(),
             onAction = {},
@@ -18,7 +19,7 @@ private fun LoginScreenEmptyPreview() {
 @Preview(name = "Login — Loading", showBackground = true)
 @Composable
 private fun LoginScreenLoadingPreview() {
-    MaterialTheme {
+    CampusWalletTheme {
         LoginScreen(
             state = LoginState(
                 phone = "0712345678",

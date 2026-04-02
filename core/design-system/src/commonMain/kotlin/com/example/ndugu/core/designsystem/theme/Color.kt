@@ -3,80 +3,81 @@ package com.example.ndugu.core.designsystem.theme
 import androidx.compose.ui.graphics.Color
 
 /**
- * CampusWallet color palette — fintech-oriented with green for money/growth,
- * amber for accents, and a rich dark mode.
+ * CampusWallet color palette — Fintech-oriented premium design (Stitch).
  */
 
-// Primary — Emerald Green (financial growth, trust)
-val CWGreen10 = Color(0xFF002106)
-val CWGreen20 = Color(0xFF00390E)
-val CWGreen30 = Color(0xFF005318)
-val CWGreen40 = Color(0xFF006E23)
-val CWGreen50 = Color(0xFF008A2E)
-val CWGreen60 = Color(0xFF21A844)
-val CWGreen70 = Color(0xFF4CC45E)
-val CWGreen80 = Color(0xFF6FE178)
-val CWGreen90 = Color(0xFFA5F5A0)
-val CWGreen95 = Color(0xFFD0FFCC)
-val CWGreen99 = Color(0xFFF5FFF0)
+// --- Stitch (Mockup) Primary: Teal (#005151) ---
+val CWPrimary = Color(0xFF005151)
+val CWOnPrimary = Color(0xFFFFFFFF)
+val CWPrimaryContainer = Color(0xFF0E6B6B)
+val CWOnPrimaryContainer = Color(0xFF9BE9E8)
+val CWPrimaryFixed = Color(0xFFA2F0EF)
+val CWPrimaryFixedDim = Color(0xFF86D4D3)
+val CWOnPrimaryFixedVariant = Color(0xFF004F50)
 
-// Secondary — Golden Amber (premium, warmth)
-val CWAmber10 = Color(0xFF261900)
-val CWAmber20 = Color(0xFF3F2B00)
-val CWAmber30 = Color(0xFF5A3F00)
-val CWAmber40 = Color(0xFF775500)
-val CWAmber50 = Color(0xFF956C00)
-val CWAmber60 = Color(0xFFB58500)
-val CWAmber70 = Color(0xFFD49E00)
-val CWAmber80 = Color(0xFFF4B800)
-val CWAmber90 = Color(0xFFFFDEA1)
-val CWAmber95 = Color(0xFFFFF0D6)
+// --- Stitch (Mockup) Secondary: Indigo (#5153B4) ---
+val CWSecondary = Color(0xFF5153B4)
+val CWOnSecondary = Color(0xFFFFFFFF)
+val CWSecondaryContainer = Color(0xFF9799FF)
+val CWOnSecondaryContainer = Color(0xFF2B2B8D)
+val CWSecondaryFixed = Color(0xFFE1DFFF)
+val CWSecondaryFixedDim = Color(0xFFC1C1FF)
+val CWOnSecondaryFixedVariant = Color(0xFF393A9B)
 
-// Tertiary — Teal (information, secondary actions)
-val CWTeal10 = Color(0xFF001F26)
-val CWTeal20 = Color(0xFF003640)
-val CWTeal30 = Color(0xFF004E5C)
-val CWTeal40 = Color(0xFF006879)
-val CWTeal50 = Color(0xFF008397)
-val CWTeal60 = Color(0xFF1A9FB5)
-val CWTeal70 = Color(0xFF42BBD1)
-val CWTeal80 = Color(0xFF67D8ED)
-val CWTeal90 = Color(0xFFB8EEFF)
-val CWTeal95 = Color(0xFFDEF7FF)
+// --- Stitch (Mockup) Tertiary: Amber (#654000) ---
+val CWTertiary = Color(0xFF654000)
+val CWOnTertiary = Color(0xFFFFFFFF)
+val CWTertiaryContainer = Color(0xFF855600)
+val CWOnTertiaryContainer = Color(0xFFFFD49E)
+val CWTertiaryFixed = Color(0xFFFFDDB4)
+val CWTertiaryFixedDim = Color(0xFFFFB955)
+val CWOnTertiaryFixedVariant = Color(0xFF633F00)
 
-// Error — Rich Red
-val CWError10 = Color(0xFF410002)
+// --- Stitch (Mockup) Surfaces & Background ---
+val CWBackground = Color(0xFFF7FAF9)
+val CWOnBackground = Color(0xFF181C1C)
+val CWSurface = Color(0xFFF7FAF9)
+val CWOnSurface = Color(0xFF181C1C)
+val CWSurfaceVariant = Color(0xFFE0E3E2)
+val CWOnSurfaceVariant = Color(0xFF3F4948)
+val CWInverseSurface = Color(0xFF2D3131)
+val CWInverseOnSurface = Color(0xFFEEF1F0)
+val CWInversePrimary = Color(0xFF86D4D3)
+
+// Surface Containers (Bento look)
+val CWSurfaceContainerLowest = Color(0xFFFFFFFF)
+val CWSurfaceContainerLow = Color(0xFFF1F4F3)
+val CWSurfaceContainer = Color(0xFFEBEEEE)
+val CWSurfaceContainerHigh = Color(0xFFE6E9E8)
+val CWSurfaceContainerHighest = Color(0xFFE0E3E2)
+val CWSurfaceDim = Color(0xFFD7DBDA)
+val CWSurfaceBright = Color(0xFFF7FAF9)
+
+// --- Error Colors ---
+val CWError = Color(0xFFBA1A1A)
+val CWOnError = Color(0xFFFFFFFF)
+val CWErrorContainer = Color(0xFFFFDAD6)
+val CWOnErrorContainer = Color(0xFF93000A)
+
+// --- Outlines ---
+val CWOutline = Color(0xFF6F7979)
+val CWOutlineVariant = Color(0xFFBEC9C8)
+
+// --- Added for DarkColorScheme compatibility ---
+val CWError80 = Color(0xFFFFB4AB)
 val CWError20 = Color(0xFF690005)
 val CWError30 = Color(0xFF93000A)
-val CWError40 = Color(0xFFBA1A1A)
-val CWError80 = Color(0xFFFFB4AB)
 val CWError90 = Color(0xFFFFDAD6)
-
-// Neutrals — Warm grays for surface hierarchy
-val CWNeutral10 = Color(0xFF1A1C19)
-val CWNeutral20 = Color(0xFF2F312E)
-val CWNeutral30 = Color(0xFF454744)
-val CWNeutral40 = Color(0xFF5D5F5C)
-val CWNeutral50 = Color(0xFF767874)
-val CWNeutral60 = Color(0xFF90918E)
-val CWNeutral70 = Color(0xFFABACA8)
-val CWNeutral80 = Color(0xFFC6C7C3)
 val CWNeutral90 = Color(0xFFE2E3DF)
-val CWNeutral95 = Color(0xFFF1F1ED)
-val CWNeutral99 = Color(0xFFFCFDF8)
 
-// Neutral Variant
-val CWNeutralVariant20 = Color(0xFF2D3229)
+// --- Legacy Colors (preserving just in case, but CW prefixes are now standard) ---
+val CWGreen40 = Color(0xFF006E23) // Legacy emerald
+val CWAmber40 = Color(0xFF775500) // Legacy amber
+val CWTeal40 = Color(0xFF006879)  // Legacy teal
+val CWNeutral99 = Color(0xFFFCFDF8)
+val CWNeutral10 = Color(0xFF1A1C19)
+val CWNeutralVariant90 = Color(0xFFDFE4D8)
 val CWNeutralVariant30 = Color(0xFF43483F)
 val CWNeutralVariant50 = Color(0xFF737970)
-val CWNeutralVariant60 = Color(0xFF8D9389)
 val CWNeutralVariant80 = Color(0xFFC3C8BC)
-val CWNeutralVariant90 = Color(0xFFDFE4D8)
-// Premium / Brand-specific colors (Stitch design)
-val CWPremiumTeal = Color(0xFF005151)
-val CWPremiumTealContainer = Color(0xFF0E6B6B)
-val CWPremiumOnTealContainer = Color(0xFF9BE9E8)
-val CWPremiumSurface = Color(0xFFF7FAF9)
-val CWPremiumOutlineVariant = Color(0xFFBEC9C8)
-val CWPremiumTertiaryContainer = Color(0xFF855600)
-val CWPremiumOnTertiaryContainer = Color(0xFFFFD49E)
+val CWNeutralVariant60 = Color(0xFF8D9389)

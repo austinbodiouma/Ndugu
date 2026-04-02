@@ -114,7 +114,7 @@ fun CWGradientButton(
     isLoading: Boolean = false,
     enabled: Boolean = true,
     gradient: androidx.compose.ui.graphics.Brush = androidx.compose.ui.graphics.Brush.horizontalGradient(
-        colors = listOf(com.example.ndugu.core.designsystem.theme.CWPremiumTeal, com.example.ndugu.core.designsystem.theme.CWPremiumTealContainer)
+        colors = listOf(com.example.ndugu.core.designsystem.theme.CWPrimary, com.example.ndugu.core.designsystem.theme.CWPrimaryContainer)
     )
 ) {
     androidx.compose.material3.Button(

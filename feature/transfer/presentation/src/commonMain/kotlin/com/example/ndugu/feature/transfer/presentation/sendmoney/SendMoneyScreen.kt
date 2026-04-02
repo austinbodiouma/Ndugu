@@ -1,5 +1,6 @@
 package com.example.ndugu.feature.transfer.presentation.sendmoney
 
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -30,9 +31,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil3.compose.AsyncImage
-import com.example.ndugu.core.designsystem.theme.CWPremiumSurface
-import com.example.ndugu.core.designsystem.theme.CWPremiumTeal
-import com.example.ndugu.core.designsystem.theme.CWPremiumTealContainer
 import com.example.ndugu.core.presentation.ObserveAsEvents
 import org.koin.compose.viewmodel.koinViewModel
 
@@ -71,7 +69,7 @@ fun SendMoneyScreen(
                 onBackClick = { onAction(SendMoneyAction.OnBackClick) }
             )
         },
-        containerColor = CWPremiumSurface
+        containerColor = MaterialTheme.colorScheme.surface
     ) { innerPadding ->
         Column(
             modifier = Modifier
@@ -97,7 +95,7 @@ private fun SendMoneyTopBar(isConfirmStep: Boolean, onBackClick: () -> Unit) {
                     text = "Send Money",
                     style = MaterialTheme.typography.titleLarge.copy(
                         fontWeight = FontWeight.Bold,
-                        color = CWPremiumTeal
+                        color = MaterialTheme.colorScheme.primary
                     )
                 )
             } else {
@@ -106,7 +104,7 @@ private fun SendMoneyTopBar(isConfirmStep: Boolean, onBackClick: () -> Unit) {
                         text = "Send Money",
                         style = MaterialTheme.typography.titleLarge.copy(
                             fontWeight = FontWeight.Bold,
-                            color = CWPremiumTeal
+                            color = MaterialTheme.colorScheme.primary
                         )
                     )
                     Text(
@@ -125,7 +123,7 @@ private fun SendMoneyTopBar(isConfirmStep: Boolean, onBackClick: () -> Unit) {
                 Icon(
                     Icons.AutoMirrored.Filled.ArrowBack,
                     contentDescription = "Back",
-                    tint = CWPremiumTeal
+                    tint = MaterialTheme.colorScheme.primary
                 )
             }
         },
@@ -141,8 +139,8 @@ private fun SendMoneyTopBar(isConfirmStep: Boolean, onBackClick: () -> Unit) {
                         verticalAlignment = Alignment.CenterVertically,
                         horizontalArrangement = Arrangement.spacedBy(4.dp)
                     ) {
-                        Text("STEP", style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.Bold, letterSpacing = 1.sp, color = CWPremiumTeal))
-                        Text("3 of 3", style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.ExtraBold, color = CWPremiumTeal))
+                        Text("STEP", style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.Bold, letterSpacing = 1.sp, color = MaterialTheme.colorScheme.primary))
+                        Text("3 of 3", style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.ExtraBold, color = MaterialTheme.colorScheme.primary))
                     }
                 }
                 Spacer(Modifier.width(16.dp))
@@ -150,7 +148,7 @@ private fun SendMoneyTopBar(isConfirmStep: Boolean, onBackClick: () -> Unit) {
                 Spacer(Modifier.width(48.dp)) // Symmetry spacer
             }
         },
-        colors = TopAppBarDefaults.topAppBarColors(containerColor = CWPremiumSurface)
+        colors = TopAppBarDefaults.topAppBarColors(containerColor = MaterialTheme.colorScheme.surface)
     )
 }
 
@@ -179,7 +177,7 @@ private fun AmountEntryContent(
                     text = "KES",
                     style = MaterialTheme.typography.titleLarge.copy(
                         fontWeight = FontWeight.Bold,
-                        color = CWPremiumTeal.copy(alpha = 0.6f)
+                        color = MaterialTheme.colorScheme.primary.copy(alpha = 0.6f)
                     ),
                     modifier = Modifier.padding(bottom = 8.dp)
                 )
@@ -188,7 +186,7 @@ private fun AmountEntryContent(
                     text = state.amountKes.ifBlank { "0.00" },
                     style = MaterialTheme.typography.displayLarge.copy(
                         fontWeight = FontWeight.Black,
-                        color = CWPremiumTeal,
+                        color = MaterialTheme.colorScheme.primary,
                         letterSpacing = (-2).sp
                     )
                 )
@@ -296,13 +294,13 @@ private fun RecipientChip(name: String, avatarUrl: String?) {
                     )
                 } else {
                     Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-                        Text(name.take(1).uppercase(), style = MaterialTheme.typography.titleMedium, color = CWPremiumTeal)
+                        Text(name.take(1).uppercase(), style = MaterialTheme.typography.titleMedium, color = MaterialTheme.colorScheme.primary)
                     }
                 }
             }
             Column {
                 Text("Sending to", style = MaterialTheme.typography.labelSmall, color = Color.Gray)
-                Text(name, style = MaterialTheme.typography.titleSmall.copy(fontWeight = FontWeight.Bold, color = CWPremiumTeal))
+                Text(name, style = MaterialTheme.typography.titleSmall.copy(fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.primary))
             }
         }
     }
@@ -359,7 +357,7 @@ private fun NumericKeypadArea(onAction: (SendMoneyAction) -> Unit) {
                 modifier = Modifier
                     .fillMaxSize()
                     .background(
-                        brush = Brush.horizontalGradient(listOf(CWPremiumTeal, CWPremiumTealContainer)),
+                        brush = Brush.horizontalGradient(listOf(MaterialTheme.colorScheme.primary, MaterialTheme.colorScheme.primaryContainer)),
                         shape = RoundedCornerShape(32.dp)
                     ),
                 contentAlignment = Alignment.Center
@@ -383,13 +381,13 @@ private fun KeypadButton(key: String, onClick: () -> Unit) {
         contentAlignment = Alignment.Center
     ) {
         if (key == "backspace") {
-            Icon(Icons.Default.Backspace, contentDescription = "Delete", tint = CWPremiumTeal)
+            Icon(Icons.Default.Backspace, contentDescription = "Delete", tint = MaterialTheme.colorScheme.primary)
         } else {
             Text(
                 text = key,
                 style = MaterialTheme.typography.headlineMedium.copy(
                     fontWeight = FontWeight.Bold,
-                    color = CWPremiumTeal
+                    color = MaterialTheme.colorScheme.primary
                 )
             )
         }
@@ -433,7 +431,7 @@ private fun ConfirmTransferContent(
             modifier = Modifier
                 .fillMaxWidth()
                 .clip(RoundedCornerShape(24.dp))
-                .background(Brush.linearGradient(listOf(CWPremiumTeal, CWPremiumTealContainer)))
+                .background(Brush.linearGradient(listOf(MaterialTheme.colorScheme.primary, MaterialTheme.colorScheme.primaryContainer)))
                 .padding(32.dp),
             contentAlignment = Alignment.Center
         ) {
@@ -499,7 +497,7 @@ private fun ConfirmTransferContent(
                             Text(if (state.recipientPhone.isNotBlank()) state.recipientPhone else "No phone", style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
                         }
                     }
-                    Icon(Icons.Default.Verified, contentDescription = "Verified", tint = CWPremiumTealContainer)
+                    Icon(Icons.Default.Verified, contentDescription = "Verified", tint = MaterialTheme.colorScheme.primaryContainer)
                 }
             }
 
@@ -521,7 +519,7 @@ private fun ConfirmTransferContent(
                     
                     // Progress Bar showing remaining balance
                     Box(modifier = Modifier.fillMaxWidth().height(4.dp).clip(CircleShape).background(MaterialTheme.colorScheme.surfaceContainer)) {
-                        Box(modifier = Modifier.fillMaxWidth(0.65f).fillMaxHeight().background(CWPremiumTeal))
+                        Box(modifier = Modifier.fillMaxWidth(0.65f).fillMaxHeight().background(MaterialTheme.colorScheme.primary))
                     }
                     
                     Spacer(Modifier.height(8.dp))
@@ -583,7 +581,7 @@ private fun ConfirmTransferContent(
                 modifier = Modifier.size(64.dp).clip(CircleShape).background(MaterialTheme.colorScheme.surfaceContainerHighest),
                 contentAlignment = Alignment.Center
             ) {
-                Icon(Icons.Default.Fingerprint, contentDescription = "Biometrics", tint = CWPremiumTeal, modifier = Modifier.size(32.dp))
+                Icon(Icons.Default.Fingerprint, contentDescription = "Biometrics", tint = MaterialTheme.colorScheme.primary, modifier = Modifier.size(32.dp))
             }
             Spacer(Modifier.height(8.dp))
             Text("Biometric Authentication Required", style = MaterialTheme.typography.labelMedium.copy(fontWeight = FontWeight.SemiBold))
@@ -604,7 +602,7 @@ private fun ConfirmTransferContent(
                 Box(
                     modifier = Modifier
                         .fillMaxSize()
-                        .background(brush = Brush.horizontalGradient(listOf(CWPremiumTeal, CWPremiumTealContainer))),
+                        .background(brush = Brush.horizontalGradient(listOf(MaterialTheme.colorScheme.primary, MaterialTheme.colorScheme.primaryContainer))),
                     contentAlignment = Alignment.Center
                 ) {
                     Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
