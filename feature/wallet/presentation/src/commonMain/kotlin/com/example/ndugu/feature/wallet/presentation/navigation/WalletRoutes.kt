@@ -15,4 +15,7 @@ data class TransactionDetailRoute(val transactionId: String)
 data class ReversalRoute(val transactionId: String)
 
 @Serializable
+data object RequestMoneyRoute
+
+@Serializable
 data object BudgetRoute

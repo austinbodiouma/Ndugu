@@ -9,6 +9,7 @@ private val sampleTransactions = listOf(
     TransactionUi(
         id = "1",
         type = TransactionType.CREDIT,
+        iconType = TransactionIconType.PERSON,
         counterpartyName = "Brian Otieno",
         amountKes = "+ KES 500",
         formattedDate = "Today, 10:32 AM",
@@ -17,6 +18,7 @@ private val sampleTransactions = listOf(
     TransactionUi(
         id = "2",
         type = TransactionType.DEBIT,
+        iconType = TransactionIconType.RESTAURANT,
         counterpartyName = "Mama Mboga Cafe",
         amountKes = "- KES 120",
         formattedDate = "Today, 08:15 AM",
@@ -25,6 +27,7 @@ private val sampleTransactions = listOf(
     TransactionUi(
         id = "3",
         type = TransactionType.DEBIT,
+        iconType = TransactionIconType.PERSON,
         counterpartyName = "Jane Wambui",
         amountKes = "- KES 1,000",
         formattedDate = "Yesterday, 04:50 PM",
@@ -33,6 +36,7 @@ private val sampleTransactions = listOf(
     TransactionUi(
         id = "4",
         type = TransactionType.CREDIT,
+        iconType = TransactionIconType.BANK,
         counterpartyName = "M-Pesa Top-Up",
         amountKes = "+ KES 3,000",
         formattedDate = "26 Mar, 09:00 AM",

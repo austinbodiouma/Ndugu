@@ -14,6 +14,7 @@ fun NavGraphBuilder.walletGraph(
     navController: NavController,
     onNavigateToSendMoney: () -> Unit,
     onNavigateToScanQr: () -> Unit,
+    onNavigateToRequestMoney: () -> Unit,
     onNavigateToReversal: (String) -> Unit,
 ) {
     navigation<WalletDashboardRoute>(startDestination = WalletDashboardRoute) {
@@ -22,6 +23,7 @@ fun NavGraphBuilder.walletGraph(
                 onNavigateToTopUp = { /* top-up: M-Pesa STK Push — handled by platform */ },
                 onNavigateToSendMoney = onNavigateToSendMoney,
                 onNavigateToScanQr = onNavigateToScanQr,
+                onNavigateToRequestMoney = onNavigateToRequestMoney,
                 onNavigateToTransactionHistory = { navController.navigate(TransactionHistoryRoute) },
                 onNavigateToTransactionDetail = { navController.navigate(TransactionDetailRoute(it)) },
             )
