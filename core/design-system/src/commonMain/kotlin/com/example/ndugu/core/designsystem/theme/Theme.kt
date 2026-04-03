@@ -1,10 +1,24 @@
 package com.example.ndugu.core.designsystem.theme
 
 import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.material3.ColorScheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.graphics.Color
+
+val ColorScheme.CWSecondaryFixed: Color
+    get() = com.example.ndugu.core.designsystem.theme.CWSecondaryFixed
+
+val ColorScheme.CWOnSecondaryFixedVariant: Color
+    get() = com.example.ndugu.core.designsystem.theme.CWOnSecondaryFixedVariant
+
+val ColorScheme.secondaryFixed: Color
+    get() = com.example.ndugu.core.designsystem.theme.CWSecondaryFixed
+
+val ColorScheme.onSecondaryFixedVariant: Color
+    get() = com.example.ndugu.core.designsystem.theme.CWOnSecondaryFixedVariant
 
 private val LightColorScheme = lightColorScheme(
     primary = CWPrimary,

@@ -58,3 +58,18 @@ include(":feature:wallet:presentation")
 include(":feature:transfer:domain")
 include(":feature:transfer:data")
 include(":feature:transfer:presentation")
+
+// Feature: Marketplace
+include(":feature:marketplace:domain")
+include(":feature:marketplace:data")
+include(":feature:marketplace:presentation")
+
+// Feature: Messaging
+include(":feature:messaging:domain")
+include(":feature:messaging:data")
+include(":feature:messaging:presentation")
+
+// Feature: Payment
+include(":feature:payment:domain")
+include(":feature:payment:data")
+include(":feature:payment:presentation")
