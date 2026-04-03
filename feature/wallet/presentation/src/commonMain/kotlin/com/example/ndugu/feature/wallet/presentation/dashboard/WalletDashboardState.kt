@@ -32,11 +32,12 @@ data class TransactionUi(
     val amountKes: String,       // formatted, e.g. "+ KES 500"
     val formattedDate: String,
     val memo: String?,
+    val dateSection: String? = null,
 )
 
 enum class TransactionType { CREDIT, DEBIT }
 
-enum class TransactionIconType { PERSON, BANK, RESTAURANT, SHOPPING_BAG, PAYMENTS }
+enum class TransactionIconType { PERSON, BANK, RESTAURANT, SHOPPING_BAG, PAYMENTS, ADD_CARD, MENU_BOOK, LOCAL_PRINTSHOP }
 
 sealed interface WalletDashboardAction {
     data object OnRefresh : WalletDashboardAction

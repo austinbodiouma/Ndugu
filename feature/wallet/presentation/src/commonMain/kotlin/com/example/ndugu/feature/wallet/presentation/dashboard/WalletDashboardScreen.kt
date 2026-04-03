@@ -430,6 +430,9 @@ private fun TransactionItem(
         TransactionIconType.RESTAURANT -> Color(0xFFFFDDB4) // tertiary-fixed
         TransactionIconType.SHOPPING_BAG -> Color(0xFFE1DFFF) // secondary-fixed
         TransactionIconType.PAYMENTS -> Color(0xFFA2F0EF) // primary-fixed
+        TransactionIconType.ADD_CARD -> Color(0xFFA2F0EF)
+        TransactionIconType.MENU_BOOK -> Color(0xFFFFDDB4)
+        TransactionIconType.LOCAL_PRINTSHOP -> Color(0xFFE1DFFF)
     }
     
     val iconImage = when (transaction.iconType) {
@@ -438,6 +441,9 @@ private fun TransactionItem(
         TransactionIconType.RESTAURANT -> Icons.Outlined.Restaurant
         TransactionIconType.SHOPPING_BAG -> Icons.Outlined.ShoppingBag
         TransactionIconType.PAYMENTS -> Icons.Outlined.Payments
+        TransactionIconType.ADD_CARD -> Icons.Outlined.AddCard
+        TransactionIconType.MENU_BOOK -> Icons.Outlined.MenuBook
+        TransactionIconType.LOCAL_PRINTSHOP -> Icons.Outlined.LocalPrintshop
     }
 
     Row(
@@ -579,4 +585,3 @@ private fun BudgetProgressItem(budget: BudgetUi) {
 }
 
 private fun String.capitalize() = this.replaceFirstChar { if (it.isLowerCase()) it.titlecase() else it.toString() }
-
