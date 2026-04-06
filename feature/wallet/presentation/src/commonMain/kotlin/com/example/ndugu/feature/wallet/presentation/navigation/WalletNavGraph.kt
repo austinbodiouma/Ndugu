@@ -19,7 +19,7 @@ fun NavGraphBuilder.walletGraph(
     onNavigateToRequestMoney: () -> Unit,
     onNavigateToReversal: (String) -> Unit,
 ) {
-    navigation<WalletDashboardRoute>(startDestination = WalletDashboardRoute) {
+    navigation<WalletGraph>(startDestination = WalletDashboardRoute) {
         composable<WalletDashboardRoute> {
             WalletDashboardRoot(
                 onNavigateToTopUp = { /* top-up: M-Pesa STK Push — handled by platform */ },

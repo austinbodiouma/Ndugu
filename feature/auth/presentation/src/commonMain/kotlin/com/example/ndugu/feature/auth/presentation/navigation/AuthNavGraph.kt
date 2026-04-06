@@ -16,13 +16,14 @@ import com.example.ndugu.feature.auth.presentation.welcome.WelcomeRoot
 fun NavGraphBuilder.authGraph(
     navController: NavController,
     onNavigateToHome: () -> Unit,
+    onSkipAuth: () -> Unit,
 ) {
-    navigation<SplashRoute>(startDestination = SplashRoute) {
+    navigation<AuthGraph>(startDestination = SplashRoute) {
         composable<SplashRoute> {
             SplashRoot(
                 onSplashFinished = {
                     navController.navigate(WelcomeRoute) {
-                        popUpTo<SplashRoute> { inclusive = true }
+                        popUpTo(SplashRoute) { inclusive = true }
                     }
                 },
             )
@@ -35,6 +36,7 @@ fun NavGraphBuilder.authGraph(
                 onNavigateToRegister = {
                     navController.navigate(RegisterRoute)
                 },
+                onSkipAuth = onSkipAuth
             )
         }
         composable<LoginRoute> {
@@ -72,4 +74,3 @@ fun NavGraphBuilder.authGraph(
         }
     }
 }
-

@@ -16,7 +16,7 @@ import com.example.ndugu.feature.marketplace.presentation.tracking.OrderTracking
 fun NavGraphBuilder.marketplaceGraph(
     navController: NavController,
 ) {
-    navigation<MarketplaceRoute.MarketplaceHomeRoute>(
+    navigation<MarketplaceGraph>(
         startDestination = MarketplaceRoute.MarketplaceHomeRoute
     ) {
         composable<MarketplaceRoute.MarketplaceHomeRoute> {

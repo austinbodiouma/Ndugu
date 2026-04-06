@@ -3,6 +3,9 @@ package com.example.ndugu.feature.payment.presentation.navigation
 import kotlinx.serialization.Serializable
 
 @Serializable
+data object PaymentGraph
+
+@Serializable
 sealed interface PaymentRoute {
 @Serializable
     data object QRScannerRoute : PaymentRoute

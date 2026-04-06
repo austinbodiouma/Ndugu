@@ -29,15 +29,11 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.alpha
-import androidx.compose.ui.draw.blur
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.drawBehind
-import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
@@ -48,13 +44,10 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import coil3.compose.AsyncImage
-
-// Stitch-specific colors from Color.kt
-private val MeshColor1 = Color(0xFFA2F0EF) // Primary Fixed
-private val MeshColor2 = Color(0xFFE1DFFF) // Secondary Fixed
-private val MeshColor3 = Color(0xFFFFDDB4) // Tertiary Fixed
-private val MeshColor4 = Color(0xFFF7FAF9) // Surface
+import androidx.compose.foundation.Image
+import ndugu.feature.auth.presentation.generated.resources.Res
+import ndugu.feature.auth.presentation.generated.resources.welcomescreen
+import org.jetbrains.compose.resources.painterResource
 
 /**
  * WelcomeRoot — entry point for the onboarding flow.
@@ -63,10 +56,12 @@ private val MeshColor4 = Color(0xFFF7FAF9) // Surface
 fun WelcomeRoot(
     onNavigateToLogin: () -> Unit,
     onNavigateToRegister: () -> Unit,
+    onSkipAuth: () -> Unit,
 ) {
     WelcomeScreen(
         onNavigateToLogin = onNavigateToLogin,
         onNavigateToRegister = onNavigateToRegister,
+        onSkipAuth = onSkipAuth,
     )
 }
 
@@ -74,10 +69,15 @@ fun WelcomeRoot(
 fun WelcomeScreen(
     onNavigateToLogin: () -> Unit,
     onNavigateToRegister: () -> Unit,
+    onSkipAuth: () -> Unit,
 ) {
     Scaffold(
         containerColor = MaterialTheme.colorScheme.surface,
-        topBar = { WelcomeHeader() },
+        topBar = { 
+            WelcomeHeader(
+                onSkipClick = onSkipAuth
+            ) 
+        },
     ) { padding ->
         Column(
             modifier = Modifier
@@ -112,36 +112,50 @@ fun WelcomeScreen(
 }
 
 @Composable
-private fun WelcomeHeader() {
+private fun WelcomeHeader(
+    onSkipClick: () -> Unit
+) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = 24.dp, vertical = 16.dp),
         verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.Start,
+        horizontalArrangement = Arrangement.SpaceBetween,
     ) {
-        Box(
-            modifier = Modifier
-                .size(32.dp)
-                .background(MaterialTheme.colorScheme.primary, RoundedCornerShape(8.dp)),
-            contentAlignment = Alignment.Center,
-        ) {
-            Icon(
-                imageVector = Icons.Rounded.AccountBalanceWallet,
-                contentDescription = null,
-                tint = Color.White,
-                modifier = Modifier.size(20.dp),
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            Box(
+                modifier = Modifier
+                    .size(32.dp)
+                    .background(MaterialTheme.colorScheme.primary, RoundedCornerShape(8.dp)),
+                contentAlignment = Alignment.Center,
+            ) {
+                Icon(
+                    imageVector = Icons.Rounded.AccountBalanceWallet,
+                    contentDescription = null,
+                    tint = Color.White,
+                    modifier = Modifier.size(20.dp),
+                )
+            }
+            Spacer(modifier = Modifier.width(8.dp))
+            Text(
+                text = "CampusWallet",
+                style = MaterialTheme.typography.titleLarge.copy(
+                    fontWeight = FontWeight.ExtraBold,
+                    letterSpacing = (-1).sp,
+                ),
+                color = MaterialTheme.colorScheme.primary,
             )
         }
-        Spacer(modifier = Modifier.width(8.dp))
-        Text(
-            text = "CampusWallet",
-            style = MaterialTheme.typography.titleLarge.copy(
-                fontWeight = FontWeight.ExtraBold,
-                letterSpacing = (-1).sp,
-            ),
-            color = MaterialTheme.colorScheme.primary,
-        )
+
+        TextButton(onClick = onSkipClick) {
+            Text(
+                text = "Skip",
+                style = MaterialTheme.typography.labelLarge.copy(
+                    fontWeight = FontWeight.Bold,
+                    color = MaterialTheme.colorScheme.primary
+                )
+            )
+        }
     }
 }
 
@@ -154,39 +168,9 @@ private fun HeroSection() {
             .padding(horizontal = 12.dp),
         contentAlignment = Alignment.Center,
     ) {
-        // Mesh Gradient Background
-        Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .alpha(0.4f)
-                .blur(80.dp)
-                .drawBehind {
-                    drawCircle(
-                        color = MeshColor1,
-                        center = Offset(0f, 0f),
-                        radius = size.minDimension / 1.5f,
-                    )
-                    drawCircle(
-                        color = MeshColor2,
-                        center = Offset(size.width, 0f),
-                        radius = size.minDimension / 1.5f,
-                    )
-                    drawCircle(
-                        color = MeshColor3,
-                        center = Offset(size.width, size.height),
-                        radius = size.minDimension / 1.5f,
-                    )
-                    drawCircle(
-                        color = MeshColor4,
-                        center = Offset(0f, size.height),
-                        radius = size.minDimension / 1.5f,
-                    )
-                }
-        )
-
         // Hero Image
-        AsyncImage(
-            model = "https://lh3.googleusercontent.com/aida-public/AB6AXuBm2ey_oCguELbzi0ed29n-vP9iR982llHMmNcD-2QE-dPTKRpDuCL8Y5DdzzgT5g-fSV_sqx0t2UbC1CV0fP9SNl-01JHwA_b2hZV007OqQdxbEY0PS2H57sTan8Es7TeVfW-RJvD92AxNMmTepjcC3AQ5FKaj7UzGHkEBUE-bYCzAhmjFtuQ3JXdD0snjSWXaXqunP0DJWB4etMwhnHXarveHUb4HyQig0x_35FBLlx7N3ccxC-PGe_Q9g6w1tkqrFXByBQ_sVMM",
+        Image(
+            painter = painterResource(Res.drawable.welcomescreen),
             contentDescription = "Students on campus",
             modifier = Modifier
                 .fillMaxSize()

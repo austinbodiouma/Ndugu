@@ -3,6 +3,9 @@ package com.example.ndugu.feature.marketplace.presentation.navigation
 import kotlinx.serialization.Serializable
 
 @Serializable
+data object MarketplaceGraph
+
+@Serializable
 sealed interface MarketplaceRoute {
 @Serializable
     data object MarketplaceHomeRoute : MarketplaceRoute

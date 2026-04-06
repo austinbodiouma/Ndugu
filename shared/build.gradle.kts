@@ -13,23 +13,26 @@ kotlin {
         }
     }
     
-    iosArm64()
-    iosSimulatorArm64()
-    
     jvm()
-    
-    js {
-        browser()
-    }
     
     @OptIn(ExperimentalWasmDsl::class)
     wasmJs {
         browser()
+        binaries.executable()
     }
+    
+    js(IR) {
+        browser()
+        binaries.executable()
+    }
+    
+    iosArm64()
+    iosSimulatorArm64()
     
     sourceSets {
         commonMain.dependencies {
             // put your Multiplatform dependencies here
+            implementation(libs.koin.core)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)

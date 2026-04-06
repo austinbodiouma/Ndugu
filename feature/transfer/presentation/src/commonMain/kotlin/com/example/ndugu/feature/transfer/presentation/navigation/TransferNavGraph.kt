@@ -1,11 +1,11 @@
 package com.example.ndugu.feature.transfer.presentation.navigation
 
+import ContactPickerRoot
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
 import androidx.navigation.toRoute
-import com.example.ndugu.feature.transfer.presentation.contactpicker.ContactPickerRoot
 import com.example.ndugu.feature.transfer.presentation.reversal.ReversalRoot
 import com.example.ndugu.feature.transfer.presentation.sendmoney.SendMoneyRoot
 
@@ -13,7 +13,7 @@ fun NavGraphBuilder.transferGraph(
     navController: NavController,
     onNavigateToTransactionDetail: (String) -> Unit,
 ) {
-    navigation<ContactPickerRoute>(startDestination = ContactPickerRoute) {
+    navigation<TransferGraph>(startDestination = ContactPickerRoute) {
         composable<ContactPickerRoute> {
             ContactPickerRoot(
                 onNavigateBack = { navController.popBackStack() },

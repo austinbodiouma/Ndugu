@@ -10,7 +10,7 @@ import com.example.ndugu.feature.messaging.presentation.room.ChatRoomRoot
 fun NavGraphBuilder.messagingGraph(
     navController: NavController,
 ) {
-    navigation<MessagingRoute.ChatHistoryRoute>(
+    navigation<MessagingGraph>(
         startDestination = MessagingRoute.ChatHistoryRoute
     ) {
         composable<MessagingRoute.ChatHistoryRoute> {

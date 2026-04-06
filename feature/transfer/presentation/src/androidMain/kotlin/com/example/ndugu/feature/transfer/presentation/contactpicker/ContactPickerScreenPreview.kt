@@ -1,5 +1,6 @@
 package com.example.ndugu.feature.transfer.presentation.contactpicker
 
+import ContactPickerScreen
 import com.example.ndugu.core.designsystem.theme.CampusWalletTheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable

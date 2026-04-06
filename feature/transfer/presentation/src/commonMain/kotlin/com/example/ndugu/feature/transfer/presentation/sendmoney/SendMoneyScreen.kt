@@ -16,7 +16,10 @@ import androidx.compose.material.icons.filled.Fingerprint
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.Verified
 import androidx.compose.material.icons.outlined.AccountBalanceWallet
+import androidx.compose.foundation.text.BasicTextField
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.*
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -171,28 +174,49 @@ private fun AmountEntryContent(
         Spacer(Modifier.weight(1f))
 
         // Amount Display
-        Column(horizontalAlignment = Alignment.CenterHorizontally) {
-            Row(verticalAlignment = Alignment.Bottom) {
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            modifier = Modifier.padding(vertical = 16.dp)
+        ) {
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.Center,
+                modifier = Modifier.fillMaxWidth()
+            ) {
                 Text(
                     text = "KES",
                     style = MaterialTheme.typography.titleLarge.copy(
                         fontWeight = FontWeight.Bold,
                         color = MaterialTheme.colorScheme.primary.copy(alpha = 0.6f)
-                    ),
-                    modifier = Modifier.padding(bottom = 8.dp)
+                    )
                 )
-                Spacer(Modifier.width(8.dp))
-                Text(
-                    text = state.amountKes.ifBlank { "0.00" },
-                    style = MaterialTheme.typography.displayLarge.copy(
+                Spacer(Modifier.width(12.dp))
+                BasicTextField(
+                    value = state.amountKes,
+                    onValueChange = { onAction(SendMoneyAction.OnAmountChange(it)) },
+                    textStyle = MaterialTheme.typography.displayLarge.copy(
                         fontWeight = FontWeight.Black,
                         color = MaterialTheme.colorScheme.primary,
-                        letterSpacing = (-2).sp
-                    )
+                        letterSpacing = (-2).sp,
+                        textAlign = TextAlign.Start
+                    ),
+                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal),
+                    singleLine = true,
+                    modifier = Modifier.width(IntrinsicSize.Min),
+                    decorationBox = { innerTextField ->
+                        if (state.amountKes.isEmpty()) {
+                            Text(
+                                text = "0.00",
+                                style = MaterialTheme.typography.displayLarge,
+                                color = MaterialTheme.colorScheme.primary.copy(alpha = 0.2f)
+                            )
+                        }
+                        innerTextField()
+                    }
                 )
             }
 
-            Spacer(Modifier.height(16.dp))
+            Spacer(Modifier.height(12.dp))
 
             // Balance Badge
             Surface(
@@ -224,49 +248,72 @@ private fun AmountEntryContent(
         Spacer(Modifier.weight(1f))
 
         // Note Input
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .background(
-                    color = MaterialTheme.colorScheme.surfaceContainerHigh,
-                    shape = RoundedCornerShape(16.dp)
-                )
-                .padding(horizontal = 16.dp, vertical = 12.dp)
+        Surface(
+            modifier = Modifier.fillMaxWidth(),
+            color = MaterialTheme.colorScheme.surfaceContainerHigh,
+            shape = RoundedCornerShape(16.dp)
         ) {
-            Row(verticalAlignment = Alignment.CenterVertically) {
+            Row(
+                modifier = Modifier.padding(horizontal = 16.dp, vertical = 12.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
                 Icon(
                     imageVector = Icons.AutoMirrored.Filled.Notes,
                     contentDescription = null,
-                    tint = MaterialTheme.colorScheme.onSurfaceVariant
+                    tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                    modifier = Modifier.size(20.dp)
                 )
                 Spacer(Modifier.width(12.dp))
-                TextField(
+                BasicTextField(
                     value = state.memo,
                     onValueChange = { onAction(SendMoneyAction.OnMemoChange(it)) },
-                    placeholder = {
-                        Text(
-                            "Add a note (optional)",
-                            style = MaterialTheme.typography.bodyMedium,
-                            color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.6f)
-                        )
-                    },
                     modifier = Modifier.fillMaxWidth(),
-                    colors = TextFieldDefaults.colors(
-                        focusedContainerColor = Color.Transparent,
-                        unfocusedContainerColor = Color.Transparent,
-                        disabledContainerColor = Color.Transparent,
-                        focusedIndicatorColor = Color.Transparent,
-                        unfocusedIndicatorColor = Color.Transparent,
+                    textStyle = MaterialTheme.typography.bodyMedium.copy(
+                        color = MaterialTheme.colorScheme.onSurface
                     ),
-                    singleLine = true
+                    singleLine = true,
+                    decorationBox = { innerTextField ->
+                        if (state.memo.isEmpty()) {
+                            Text(
+                                "Add a note (optional)",
+                                style = MaterialTheme.typography.bodyMedium,
+                                color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.6f)
+                            )
+                        }
+                        innerTextField()
+                    }
                 )
             }
         }
 
         Spacer(Modifier.height(24.dp))
 
-        // Numeric Keypad and CTA
-        NumericKeypadArea(onAction = onAction)
+        // CTA Button
+        Button(
+            onClick = { onAction(SendMoneyAction.OnReviewClick) },
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(60.dp)
+                .imePadding(),
+            shape = RoundedCornerShape(30.dp),
+            colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent),
+            contentPadding = PaddingValues()
+        ) {
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(
+                        brush = Brush.horizontalGradient(listOf(MaterialTheme.colorScheme.primary, MaterialTheme.colorScheme.primaryContainer)),
+                        shape = RoundedCornerShape(30.dp)
+                    ),
+                contentAlignment = Alignment.Center
+            ) {
+                Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                    Text("Continue to Review", style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold))
+                    Icon(Icons.AutoMirrored.Filled.ArrowForward, contentDescription = null, modifier = Modifier.size(18.dp))
+                }
+            }
+        }
         
         Spacer(Modifier.height(32.dp))
     }
@@ -306,93 +353,6 @@ private fun RecipientChip(name: String, avatarUrl: String?) {
     }
 }
 
-@Composable
-private fun NumericKeypadArea(onAction: (SendMoneyAction) -> Unit) {
-    Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .clip(RoundedCornerShape(topStart = 40.dp, topEnd = 40.dp))
-            .background(Color.White.copy(alpha = 0.8f))
-            .padding(horizontal = 32.dp, vertical = 32.dp),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.spacedBy(32.dp)
-    ) {
-        val keys = listOf(
-            listOf("1", "2", "3"),
-            listOf("4", "5", "6"),
-            listOf("7", "8", "9"),
-            listOf(".", "0", "backspace")
-        )
-
-        keys.forEach { row ->
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween
-            ) {
-                row.forEach { key ->
-                    KeypadButton(
-                        key = key,
-                        onClick = {
-                            if (key == "backspace") {
-                                onAction(SendMoneyAction.OnKeypadBackspace)
-                            } else {
-                                onAction(SendMoneyAction.OnKeypadDigit(key))
-                            }
-                        }
-                    )
-                }
-            }
-        }
-
-        Button(
-            onClick = { onAction(SendMoneyAction.OnReviewClick) },
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(64.dp),
-            shape = RoundedCornerShape(32.dp),
-            colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent),
-            contentPadding = PaddingValues()
-        ) {
-            Box(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .background(
-                        brush = Brush.horizontalGradient(listOf(MaterialTheme.colorScheme.primary, MaterialTheme.colorScheme.primaryContainer)),
-                        shape = RoundedCornerShape(32.dp)
-                    ),
-                contentAlignment = Alignment.Center
-            ) {
-                Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                    Text("Continue", style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold))
-                    Icon(Icons.AutoMirrored.Filled.ArrowForward, contentDescription = null)
-                }
-            }
-        }
-    }
-}
-
-@Composable
-private fun KeypadButton(key: String, onClick: () -> Unit) {
-    Box(
-        modifier = Modifier
-            .size(64.dp)
-            .clip(RoundedCornerShape(16.dp))
-            .clickable(onClick = onClick),
-        contentAlignment = Alignment.Center
-    ) {
-        if (key == "backspace") {
-            Icon(Icons.Default.Backspace, contentDescription = "Delete", tint = MaterialTheme.colorScheme.primary)
-        } else {
-            Text(
-                text = key,
-                style = MaterialTheme.typography.headlineMedium.copy(
-                    fontWeight = FontWeight.Bold,
-                    color = MaterialTheme.colorScheme.primary
-                )
-            )
-        }
-    }
-}
 
 @Composable
 private fun ConfirmTransferContent(

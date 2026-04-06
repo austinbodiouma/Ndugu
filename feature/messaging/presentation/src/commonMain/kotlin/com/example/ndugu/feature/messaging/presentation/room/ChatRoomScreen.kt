@@ -101,14 +101,15 @@ fun ChatRoomScreen(
                     onAddClick = { onAction(ChatRoomAction.OnAddAttachmentClick) }
                 )
             },
-            containerColor = MaterialTheme.colorScheme.background
+            containerColor = MaterialTheme.colorScheme.background,
+            contentWindowInsets = WindowInsets(0, 0, 0, 0)
         ) { padding ->
             LazyColumn(
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(padding),
-                contentPadding = PaddingValues(horizontal = 16.dp, vertical = 20.dp),
-                verticalArrangement = Arrangement.spacedBy(16.dp)
+                verticalArrangement = Arrangement.spacedBy(16.dp),
+                contentPadding = PaddingValues(start = 16.dp, end = 16.dp, top = 20.dp, bottom = 12.dp)
             ) {
                 // Date Divider
                 item {
@@ -334,6 +335,7 @@ fun MessageInputBar(
     Surface(
         modifier = Modifier
             .fillMaxWidth()
+            .imePadding()
             .navigationBarsPadding(),
         color = MaterialTheme.colorScheme.surface.copy(alpha = 0.95f),
         tonalElevation = 8.dp
@@ -409,7 +411,3 @@ fun MessageInputBar(
         }
     }
 }
-
-// Added missing import for BasicTextField
-
-

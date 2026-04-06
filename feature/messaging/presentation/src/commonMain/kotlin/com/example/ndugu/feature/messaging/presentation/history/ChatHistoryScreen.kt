@@ -70,24 +70,6 @@ fun ChatHistoryScreen(
                     onMoreClick = { /* TODO */ }
                 )
             },
-            floatingActionButton = {
-                FloatingActionButton(
-                    onClick = { onAction(ChatHistoryAction.OnComposeNewChat) },
-                    containerColor = MaterialTheme.colorScheme.primary,
-                    contentColor = MaterialTheme.colorScheme.onPrimary,
-                    shape = CircleShape,
-                    modifier = Modifier.padding(bottom = 80.dp) // Space for bottom nav
-                ) {
-                    Icon(
-                        imageVector = Icons.Outlined.Edit,
-                        contentDescription = "New Message",
-                        modifier = Modifier.size(28.dp)
-                    )
-                }
-            },
-            bottomBar = {
-                ChatHistoryBottomNavBar()
-            },
             containerColor = MaterialTheme.colorScheme.background
         ) { padding ->
             Column(
@@ -111,7 +93,6 @@ fun ChatHistoryScreen(
                             onChatClick = { onAction(ChatHistoryAction.OnChatClick(chat.id)) }
                         )
                     }
-                    item { Spacer(modifier = Modifier.height(100.dp)) } // Extra space for FAB/Nav
                 }
             }
         }
@@ -308,54 +289,3 @@ fun ChatItemRow(
     }
 }
 
-@Composable
-fun ChatHistoryBottomNavBar() {
-    NavigationBar(
-        containerColor = MaterialTheme.colorScheme.surface,
-        tonalElevation = 8.dp
-    ) {
-        NavigationBarItem(
-            icon = { Icon(Icons.Outlined.Home, contentDescription = "Home") },
-            label = { Text("Home") },
-            selected = false,
-            onClick = { }
-        )
-        NavigationBarItem(
-            icon = { Icon(Icons.Outlined.Storefront, contentDescription = "Market") },
-            label = { Text("Market") },
-            selected = false,
-            onClick = { }
-        )
-        NavigationBarItem(
-            icon = { 
-                Box(
-                    modifier = Modifier
-                        .size(48.dp)
-                        .background(MaterialTheme.colorScheme.primary, CircleShape),
-                    contentAlignment = Alignment.Center
-                ) {
-                    Icon(
-                        Icons.Outlined.QrCodeScanner, 
-                        contentDescription = "Scan",
-                        tint = MaterialTheme.colorScheme.onPrimary
-                    )
-                }
-            },
-            label = { },
-            selected = false,
-            onClick = { }
-        )
-        NavigationBarItem(
-            icon = { Icon(Icons.Default.Chat, contentDescription = "Inbox") },
-            label = { Text("Inbox") },
-            selected = true,
-            onClick = { }
-        )
-        NavigationBarItem(
-            icon = { Icon(Icons.Outlined.Person, contentDescription = "Profile") },
-            label = { Text("Profile") },
-            selected = false,
-            onClick = { }
-        )
-    }
-}

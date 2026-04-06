@@ -3,6 +3,9 @@ package com.example.ndugu.feature.wallet.presentation.navigation
 import kotlinx.serialization.Serializable
 
 @Serializable
+data object WalletGraph
+
+@Serializable
 data object WalletDashboardRoute
 
 @Serializable

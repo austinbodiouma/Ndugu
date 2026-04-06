@@ -62,34 +62,42 @@ fun CreateListingScreen(
     CampusWalletTheme {
         Scaffold(
             topBar = {
-                CenterAlignedTopAppBar(
-                    title = {
-                        Text(
-                            "New Listing",
-                            style = MaterialTheme.typography.titleLarge,
-                            fontWeight = FontWeight.Bold,
-                            color = Color(0xFF005151) // Matching teal-900 from design
-                        )
-                    },
-                    navigationIcon = {
+                Surface(
+                    color = MaterialTheme.colorScheme.surface.copy(alpha = 0.9f),
+                    modifier = Modifier.statusBarsPadding()
+                ) {
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(56.dp)
+                            .padding(horizontal = 16.dp),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
                         IconButton(
                             onClick = { onAction(CreateListingAction.OnBackClick) },
                             modifier = Modifier
-                                .padding(start = 8.dp)
+                                .size(40.dp)
                                 .clip(CircleShape)
-                                .background(MaterialTheme.colorScheme.surfaceContainer)
+                                .background(MaterialTheme.colorScheme.surfaceContainerHigh)
                         ) {
                             Icon(
                                 imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                                 contentDescription = "Back",
-                                tint = MaterialTheme.colorScheme.onSurface
+                                tint = MaterialTheme.colorScheme.onSurface,
+                                modifier = Modifier.size(20.dp)
                             )
                         }
-                    },
-                    colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
-                        containerColor = Color.White.copy(alpha = 0.8f), // Backdrop blur effect simulator
-                    )
-                )
+                        
+                        Spacer(Modifier.width(16.dp))
+                        
+                        Text(
+                            "New Listing",
+                            style = MaterialTheme.typography.titleMedium,
+                            fontWeight = FontWeight.Bold,
+                            color = MaterialTheme.colorScheme.onSurface
+                        )
+                    }
+                }
             },
             containerColor = MaterialTheme.colorScheme.background
         ) { padding ->

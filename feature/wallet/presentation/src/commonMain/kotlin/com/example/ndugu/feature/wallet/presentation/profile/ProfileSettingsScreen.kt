@@ -65,7 +65,7 @@ fun ProfileSettingsScreen(
                 onNotificationClick = { onAction(ProfileSettingsAction.OnNotificationsClick) }
             )
         },
-        containerColor = CWBackground
+        containerColor = MaterialTheme.colorScheme.surface
     ) { padding ->
         LazyColumn(
             modifier = Modifier
@@ -93,8 +93,8 @@ fun ProfileSettingsScreen(
                             icon = Icons.Outlined.Person,
                             title = "Personal Info",
                             subtitle = "Update your details",
-                            iconContainerColor = CWPrimary.copy(alpha = 0.05f),
-                            iconColor = CWPrimary,
+
+                            iconColor = MaterialTheme.colorScheme.primary,
                             onClick = { onAction(ProfileSettingsAction.OnPersonalInfoClick) }
                         )
                     }
@@ -105,17 +105,17 @@ fun ProfileSettingsScreen(
                             icon = Icons.Outlined.Analytics,
                             title = "Budgets",
                             subtitle = "Manage campus spending",
-                            iconContainerColor = CWSecondary.copy(alpha = 0.05f),
-                            iconColor = CWSecondary,
+
+                            iconColor = MaterialTheme.colorScheme.secondary,
                             onClick = { onAction(ProfileSettingsAction.OnBudgetsClick) }
                         )
-                        HorizontalDivider(modifier = Modifier.padding(horizontal = 16.dp), color = CWSurfaceContainer)
+                        HorizontalDivider(modifier = Modifier.padding(horizontal = 16.dp), color = MaterialTheme.colorScheme.surfaceContainer)
                         ProfileItem(
                             icon = Icons.Outlined.History,
                             title = "Transaction History",
                             subtitle = "All past payments",
-                            iconContainerColor = CWSecondary.copy(alpha = 0.05f),
-                            iconColor = CWSecondary,
+
+                            iconColor = MaterialTheme.colorScheme.secondary,
                             onClick = { onAction(ProfileSettingsAction.OnTransactionHistoryClick) }
                         )
                     }
@@ -126,17 +126,17 @@ fun ProfileSettingsScreen(
                             icon = Icons.Outlined.ShoppingBag,
                             title = "Shop",
                             subtitle = "Campus bookstore & gear",
-                            iconContainerColor = CWTertiary.copy(alpha = 0.05f),
-                            iconColor = CWTertiary,
+
+                            iconColor = MaterialTheme.colorScheme.tertiary,
                             onClick = { onAction(ProfileSettingsAction.OnShopClick) }
                         )
-                        HorizontalDivider(modifier = Modifier.padding(horizontal = 16.dp), color = CWSurfaceContainer)
+                        HorizontalDivider(modifier = Modifier.padding(horizontal = 16.dp), color = MaterialTheme.colorScheme.surfaceContainer)
                         ProfileItem(
                             icon = Icons.Outlined.ReceiptLong,
                             title = "Your Orders",
                             subtitle = "Track your deliveries",
-                            iconContainerColor = CWTertiary.copy(alpha = 0.05f),
-                            iconColor = CWTertiary,
+
+                            iconColor = MaterialTheme.colorScheme.tertiary,
                             onClick = { onAction(ProfileSettingsAction.OnYourOrdersClick) }
                         )
                     }
@@ -147,17 +147,17 @@ fun ProfileSettingsScreen(
                             icon = Icons.Outlined.NotificationsActive,
                             title = "Notifications",
                             subtitle = "Alerts and reminders",
-                            iconContainerColor = CWOnSurfaceVariant.copy(alpha = 0.05f),
-                            iconColor = CWOnSurfaceVariant,
+
+                            iconColor = MaterialTheme.colorScheme.onSurfaceVariant,
                             onClick = { onAction(ProfileSettingsAction.OnNotificationsClick) }
                         )
-                        HorizontalDivider(modifier = Modifier.padding(horizontal = 16.dp), color = CWSurfaceContainer)
+                        HorizontalDivider(modifier = Modifier.padding(horizontal = 16.dp), color = MaterialTheme.colorScheme.surfaceContainer)
                         ProfileItem(
                             icon = Icons.Outlined.Security,
                             title = "Security",
                             subtitle = "FaceID, PIN, and Privacy",
-                            iconContainerColor = CWOnSurfaceVariant.copy(alpha = 0.05f),
-                            iconColor = CWOnSurfaceVariant,
+
+                            iconColor = MaterialTheme.colorScheme.onSurfaceVariant,
                             onClick = { onAction(ProfileSettingsAction.OnSecurityClick) }
                         )
                     }
@@ -168,18 +168,18 @@ fun ProfileSettingsScreen(
                             icon = Icons.Outlined.Help,
                             title = "Support",
                             subtitle = "24/7 Academic concierge",
-                            iconContainerColor = CWPrimary.copy(alpha = 0.05f),
-                            iconColor = CWPrimary,
+
+                            iconColor = MaterialTheme.colorScheme.primary,
                             onClick = { onAction(ProfileSettingsAction.OnSupportClick) }
                         )
-                        HorizontalDivider(modifier = Modifier.padding(horizontal = 16.dp), color = CWSurfaceContainer)
+                        HorizontalDivider(modifier = Modifier.padding(horizontal = 16.dp), color = MaterialTheme.colorScheme.surfaceContainer)
                         ProfileItem(
                             icon = Icons.Outlined.Logout,
                             title = "Log Out",
-                            titleColor = CWPrimary, // Matching HTML Logout Text Color
+                            titleColor = MaterialTheme.colorScheme.primary, // Matching HTML Logout Text Color
                             subtitle = "v4.2.1",
-                            iconContainerColor = CWError.copy(alpha = 0.05f),
-                            iconColor = CWError,
+
+                            iconColor = MaterialTheme.colorScheme.error,
                             onClick = { onAction(ProfileSettingsAction.OnLogoutClick) },
                             showChevron = false,
                             subtitleAlignment = Alignment.End
@@ -207,7 +207,7 @@ private fun ProfileTopAppBar(
                     modifier = Modifier
                         .size(32.dp)
                         .clip(CircleShape)
-                        .background(CWSurfaceVariant)
+                        .background(MaterialTheme.colorScheme.surfaceVariant)
                 ) {
                     // In a real app, this would be an Image or Icon
                 }
@@ -215,7 +215,7 @@ private fun ProfileTopAppBar(
                     text = "CampusWallet",
                     style = MaterialTheme.typography.titleLarge.copy(
                         fontWeight = FontWeight.ExtraBold,
-                        color = CWPrimary,
+                        color = MaterialTheme.colorScheme.primary,
                         letterSpacing = (-0.5).sp
                     )
                 )
@@ -228,12 +228,12 @@ private fun ProfileTopAppBar(
                     .padding(end = 8.dp)
                     .size(40.dp)
                     .clip(CircleShape)
-                    .background(CWSurfaceContainerLow)
+                    .background(MaterialTheme.colorScheme.surfaceContainerLow)
             ) {
                 Icon(
                     imageVector = Icons.Default.Notifications,
                     contentDescription = "Notifications",
-                    tint = CWPrimary,
+                    tint = MaterialTheme.colorScheme.primary,
                     modifier = Modifier.size(24.dp)
                 )
             }
@@ -256,7 +256,7 @@ private fun ProfileHeroCard(
             .clip(RoundedCornerShape(32.dp))
             .background(
                 Brush.linearGradient(
-                    colors = listOf(CWPrimary, CWPrimaryContainer)
+                    colors = listOf(MaterialTheme.colorScheme.primary, MaterialTheme.colorScheme.primaryContainer)
                 )
             )
     ) {
@@ -273,7 +273,7 @@ private fun ProfileHeroCard(
                 .size(100.dp)
                 .offset(x = (-40).dp, y = 140.dp)
                 .blur(30.dp)
-                .background(CWTertiary.copy(alpha = 0.2f), CircleShape)
+                .background(MaterialTheme.colorScheme.tertiary.copy(alpha = 0.2f), CircleShape)
         )
 
         Column(
@@ -310,7 +310,7 @@ private fun ProfileHeroCard(
                             Icon(
                                 imageVector = Icons.Default.Verified,
                                 contentDescription = null,
-                                tint = CWPrimary,
+                                tint = MaterialTheme.colorScheme.primary,
                                 modifier = Modifier.size(12.dp)
                             )
                             Text(
@@ -318,7 +318,7 @@ private fun ProfileHeroCard(
                                 style = MaterialTheme.typography.labelSmall.copy(
                                     fontWeight = FontWeight.Bold,
                                     fontSize = 10.sp,
-                                    color = CWPrimary
+                                    color = MaterialTheme.colorScheme.primary
                                 )
                             )
                         }
@@ -339,7 +339,7 @@ private fun ProfileHeroCard(
             Text(
                 text = state.email,
                 style = MaterialTheme.typography.bodyMedium.copy(
-                    color = CWOnPrimaryContainer.copy(alpha = 0.8f),
+                    color = MaterialTheme.colorScheme.onPrimaryContainer.copy(alpha = 0.8f),
                     fontWeight = FontWeight.Medium
                 )
             )
@@ -349,7 +349,7 @@ private fun ProfileHeroCard(
             Text(
                 text = "${state.university} • Class of ${state.classOf}".uppercase(),
                 style = MaterialTheme.typography.labelSmall.copy(
-                    color = CWOnPrimaryContainer.copy(alpha = 0.6f),
+                    color = MaterialTheme.colorScheme.onPrimaryContainer.copy(alpha = 0.6f),
                     fontWeight = FontWeight.SemiBold,
                     letterSpacing = 1.sp
                 )
@@ -370,7 +370,7 @@ private fun ProfileSection(
                 modifier = Modifier.padding(start = 8.dp, bottom = 12.dp),
                 style = MaterialTheme.typography.labelLarge.copy(
                     fontWeight = FontWeight.Bold,
-                    color = CWOnSurfaceVariant.copy(alpha = 0.6f),
+                    color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.6f),
                     letterSpacing = 2.sp
                 )
             )
@@ -378,7 +378,7 @@ private fun ProfileSection(
         Surface(
             modifier = Modifier.fillMaxWidth(),
             shape = RoundedCornerShape(24.dp),
-            color = CWSurfaceContainerLowest
+            color = MaterialTheme.colorScheme.surfaceContainerLowest
         ) {
             Column(content = content)
         }
@@ -390,10 +390,9 @@ private fun ProfileItem(
     icon: ImageVector,
     title: String,
     subtitle: String,
-    iconContainerColor: Color,
     iconColor: Color,
     onClick: () -> Unit,
-    titleColor: Color = CWOnSurface,
+    titleColor: Color = MaterialTheme.colorScheme.onSurface,
     showChevron: Boolean = true,
     subtitleAlignment: Alignment.Horizontal = Alignment.Start
 ) {
@@ -409,7 +408,7 @@ private fun ProfileItem(
             modifier = Modifier
                 .size(40.dp)
                 .clip(CircleShape)
-                .background(iconContainerColor),
+                .background(MaterialTheme.colorScheme.surfaceContainerLow),
             contentAlignment = Alignment.Center
         ) {
             Icon(
@@ -432,7 +431,7 @@ private fun ProfileItem(
                 Text(
                     text = subtitle,
                     style = MaterialTheme.typography.bodySmall.copy(
-                        color = CWOnSurfaceVariant
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
                 )
             }
@@ -442,7 +441,7 @@ private fun ProfileItem(
             Text(
                 text = subtitle,
                 style = MaterialTheme.typography.labelSmall.copy(
-                    color = CWOutlineVariant,
+                    color = MaterialTheme.colorScheme.outlineVariant,
                     fontWeight = FontWeight.Medium
                 )
             )
@@ -452,7 +451,7 @@ private fun ProfileItem(
             Icon(
                 imageVector = Icons.AutoMirrored.Filled.KeyboardArrowRight,
                 contentDescription = null,
-                tint = CWOutlineVariant,
+                tint = MaterialTheme.colorScheme.outlineVariant,
                 modifier = Modifier.offset(x = 4.dp)
             )
         }

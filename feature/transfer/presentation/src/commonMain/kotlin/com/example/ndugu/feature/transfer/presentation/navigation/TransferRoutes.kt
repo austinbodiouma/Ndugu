@@ -3,6 +3,9 @@ package com.example.ndugu.feature.transfer.presentation.navigation
 import kotlinx.serialization.Serializable
 
 @Serializable
+data object TransferGraph
+
+@Serializable
 data object ContactPickerRoute
 
 @Serializable

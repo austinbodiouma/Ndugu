@@ -1,5 +1,3 @@
-package com.example.ndugu.feature.transfer.presentation.contactpicker
-
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -10,6 +8,7 @@ import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.ChevronRight
@@ -36,6 +35,11 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil3.compose.AsyncImage
 import com.example.ndugu.core.presentation.ObserveAsEvents
+import com.example.ndugu.feature.transfer.presentation.contactpicker.ContactPickerAction
+import com.example.ndugu.feature.transfer.presentation.contactpicker.ContactPickerEvent
+import com.example.ndugu.feature.transfer.presentation.contactpicker.ContactPickerState
+import com.example.ndugu.feature.transfer.presentation.contactpicker.ContactPickerViewModel
+import com.example.ndugu.feature.transfer.presentation.contactpicker.ContactUi
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
@@ -72,9 +76,6 @@ fun ContactPickerScreen(
         topBar = {
             ContactPickerTopBar(onBackClick = { onAction(ContactPickerAction.OnBackClick) })
         },
-        bottomBar = {
-            ContactPickerBottomBar()
-        },
         containerColor = MaterialTheme.colorScheme.surface
     ) { innerPadding ->
         LazyColumn(
@@ -99,7 +100,7 @@ fun ContactPickerScreen(
 
             item {
                 SectionHeader(
-                    title = "All CampusWallet Contacts",
+                    title = "Contacts",
                     trailingIcon = {
                         Icon(
                             imageVector = Icons.Default.Search, // Using Search as a placeholder for sort
@@ -164,42 +165,43 @@ private fun ContactPickerSearchBar(
     query: String,
     onQueryChange: (String) -> Unit
 ) {
-    Box(
+    Surface(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = 24.dp, vertical = 16.dp)
-            .background(
-                color = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f),
-                shape = RoundedCornerShape(16.dp)
-            )
-            .padding(horizontal = 16.dp, vertical = 12.dp)
+            .padding(horizontal = 24.dp, vertical = 12.dp),
+        color = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.4f),
+        shape = RoundedCornerShape(12.dp)
     ) {
-        Row(verticalAlignment = Alignment.CenterVertically) {
+        Row(
+            modifier = Modifier
+                .padding(horizontal = 16.dp, vertical = 10.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
             Icon(
                 imageVector = Icons.Default.Search,
                 contentDescription = null,
-                tint = MaterialTheme.colorScheme.outline
+                tint = MaterialTheme.colorScheme.outline,
+                modifier = Modifier.size(20.dp)
             )
-            Spacer(Modifier.width(12.dp))
-            TextField(
+            Spacer(Modifier.width(10.dp))
+            BasicTextField(
                 value = query,
                 onValueChange = onQueryChange,
-                placeholder = {
-                    Text(
-                        "Search name or enter phone number",
-                        style = MaterialTheme.typography.bodyMedium,
-                        color = MaterialTheme.colorScheme.outline
-                    )
-                },
                 modifier = Modifier.fillMaxWidth(),
-                colors = TextFieldDefaults.colors(
-                    focusedContainerColor = Color.Transparent,
-                    unfocusedContainerColor = Color.Transparent,
-                    disabledContainerColor = Color.Transparent,
-                    focusedIndicatorColor = Color.Transparent,
-                    unfocusedIndicatorColor = Color.Transparent,
+                textStyle = MaterialTheme.typography.bodyMedium.copy(
+                    color = MaterialTheme.colorScheme.onSurface
                 ),
-                singleLine = true
+                singleLine = true,
+                decorationBox = { innerTextField ->
+                    if (query.isEmpty()) {
+                        Text(
+                            "Search name or phone number",
+                            style = MaterialTheme.typography.bodyMedium,
+                            color = MaterialTheme.colorScheme.outline.copy(alpha = 0.7f)
+                        )
+                    }
+                    innerTextField()
+                }
             )
         }
     }

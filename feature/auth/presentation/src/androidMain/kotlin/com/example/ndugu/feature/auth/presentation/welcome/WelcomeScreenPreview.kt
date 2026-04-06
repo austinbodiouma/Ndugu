@@ -11,6 +11,7 @@ private fun WelcomeScreenPreview() {
         WelcomeScreen(
             onNavigateToLogin = {},
             onNavigateToRegister = {},
+            onSkipAuth = {},
         )
     }
 }

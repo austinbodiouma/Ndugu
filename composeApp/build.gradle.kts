@@ -27,23 +27,11 @@ kotlin {
         }
     }
     
-    jvm()
-    
-    js {
-        browser()
-        binaries.executable()
-    }
-    
-    @OptIn(ExperimentalWasmDsl::class)
-    wasmJs {
-        browser()
-        binaries.executable()
-    }
-    
     sourceSets {
         androidMain.dependencies {
             implementation(libs.compose.uiToolingPreview)
             implementation(libs.androidx.activity.compose)
+            implementation(libs.koin.android)
         }
         commonMain.dependencies {
             implementation(libs.compose.runtime)
@@ -53,15 +41,30 @@ kotlin {
             implementation(libs.compose.components.resources)
             implementation(libs.androidx.lifecycle.viewmodelCompose)
             implementation(libs.androidx.lifecycle.runtimeCompose)
+            
+            // Navigation
+            implementation(libs.androidx.navigation.compose)
+            implementation(libs.compose.material.icons.extended)
+            
+            // Koin
+            implementation(libs.koin.compose)
+            implementation(libs.koin.compose.viewmodel)
+            
+            // Core
+            implementation(projects.core.designSystem)
+
+            // Features
+            implementation(projects.feature.auth.presentation)
+            implementation(projects.feature.wallet.presentation)
+            implementation(projects.feature.marketplace.presentation)
+            implementation(projects.feature.messaging.presentation)
+            implementation(projects.feature.payment.presentation)
+            implementation(projects.feature.transfer.presentation)
+
             implementation(projects.shared)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
-        }
-        jvmMain.dependencies {
-            implementation(compose.desktop.currentOs)
-            implementation(libs.compose.uiToolingPreview)
-            implementation(libs.kotlinx.coroutinesSwing)
         }
     }
 }
@@ -95,16 +98,4 @@ android {
 
 dependencies {
     debugImplementation(libs.compose.uiTooling)
-}
-
-compose.desktop {
-    application {
-        mainClass = "com.example.ndugu.MainKt"
-
-        nativeDistributions {
-            targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
-            packageName = "com.example.ndugu"
-            packageVersion = "1.0.0"
-        }
-    }
 }

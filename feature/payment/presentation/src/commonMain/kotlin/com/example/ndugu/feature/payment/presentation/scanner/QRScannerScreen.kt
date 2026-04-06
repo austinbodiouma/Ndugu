@@ -97,7 +97,3 @@ fun QRScannerScreen(
         }
     }
 }
-
-
-    )
-}

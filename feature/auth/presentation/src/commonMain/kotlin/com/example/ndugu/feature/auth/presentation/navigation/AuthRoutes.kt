@@ -3,6 +3,9 @@ package com.example.ndugu.feature.auth.presentation.navigation
 import kotlinx.serialization.Serializable
 
 @Serializable
+data object AuthGraph
+
+@Serializable
 data object SplashRoute
 
 @Serializable
