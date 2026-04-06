@@ -8,13 +8,35 @@ import androidx.navigation.toRoute
 import com.example.ndugu.feature.auth.presentation.login.LoginRoot
 import com.example.ndugu.feature.auth.presentation.otp.OtpVerifyRoot
 import com.example.ndugu.feature.auth.presentation.register.RegisterRoot
+import com.example.ndugu.feature.auth.presentation.splash.SplashRoot
 import com.example.ndugu.feature.auth.presentation.uploadid.UploadIdRoot
+import com.example.ndugu.feature.auth.presentation.verificationpending.VerificationPendingRoot
+import com.example.ndugu.feature.auth.presentation.welcome.WelcomeRoot
 
 fun NavGraphBuilder.authGraph(
     navController: NavController,
     onNavigateToHome: () -> Unit,
 ) {
-    navigation<LoginRoute>(startDestination = LoginRoute) {
+    navigation<SplashRoute>(startDestination = SplashRoute) {
+        composable<SplashRoute> {
+            SplashRoot(
+                onSplashFinished = {
+                    navController.navigate(WelcomeRoute) {
+                        popUpTo<SplashRoute> { inclusive = true }
+                    }
+                },
+            )
+        }
+        composable<WelcomeRoute> {
+            WelcomeRoot(
+                onNavigateToLogin = {
+                    navController.navigate(LoginRoute)
+                },
+                onNavigateToRegister = {
+                    navController.navigate(RegisterRoute)
+                },
+            )
+        }
         composable<LoginRoute> {
             LoginRoot(
                 onNavigateToHome = onNavigateToHome,
@@ -42,5 +64,12 @@ fun NavGraphBuilder.authGraph(
                 onNavigateToHome = onNavigateToHome,
             )
         }
+        composable<VerificationPendingRoute> {
+            VerificationPendingRoot(
+                onNavigateBack = { navController.popBackStack() },
+                onNavigateToHome = onNavigateToHome,
+            )
+        }
     }
 }
+

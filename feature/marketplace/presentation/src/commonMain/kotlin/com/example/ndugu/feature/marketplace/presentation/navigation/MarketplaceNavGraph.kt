@@ -10,6 +10,8 @@ import com.example.ndugu.feature.marketplace.presentation.detail.ListingDetailRo
 import com.example.ndugu.feature.marketplace.presentation.create.CreateListingRoot
 import com.example.ndugu.feature.marketplace.presentation.seller.SellerDashboardRoot
 import com.example.ndugu.feature.marketplace.presentation.dispute.DisputeRoot
+import com.example.ndugu.feature.marketplace.presentation.myorders.MyOrdersRoot
+import com.example.ndugu.feature.marketplace.presentation.tracking.OrderTrackingRoot
 
 fun NavGraphBuilder.marketplaceGraph(
     navController: NavController,
@@ -49,6 +51,28 @@ fun NavGraphBuilder.marketplaceGraph(
         composable<MarketplaceRoute.DisputeRoute> {
             DisputeRoot(
                 onNavigateBack = { navController.popBackStack() }
+            )
+        }
+        composable<MarketplaceRoute.MyOrdersRoute> {
+            MyOrdersRoot(
+                onNavigateBack = { navController.popBackStack() },
+                onNavigateToOrderDetail = { orderId ->
+                    navController.navigate(MarketplaceRoute.OrderTrackingRoute(orderId))
+                },
+                onNavigateToTracking = { orderId ->
+                    navController.navigate(MarketplaceRoute.OrderTrackingRoute(orderId))
+                },
+                onNavigateToChat = { sellerId ->
+                    // TODO: Implement navigation to chat
+                }
+            )
+        }
+        composable<MarketplaceRoute.OrderTrackingRoute> {
+            OrderTrackingRoot(
+                onNavigateBack = { navController.popBackStack() },
+                onNavigateToChat = { sellerId ->
+                    // TODO: Navigate to Chat
+                }
             )
         }
     }

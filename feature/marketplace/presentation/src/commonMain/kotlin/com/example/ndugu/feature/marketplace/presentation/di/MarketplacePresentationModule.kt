@@ -5,6 +5,8 @@ import com.example.ndugu.feature.marketplace.presentation.detail.ListingDetailVi
 import com.example.ndugu.feature.marketplace.presentation.create.CreateListingViewModel
 import com.example.ndugu.feature.marketplace.presentation.seller.SellerDashboardViewModel
 import com.example.ndugu.feature.marketplace.presentation.dispute.DisputeViewModel
+import com.example.ndugu.feature.marketplace.presentation.myorders.MyOrdersViewModel
+import com.example.ndugu.feature.marketplace.presentation.tracking.OrderTrackingViewModel
 import org.koin.core.module.dsl.viewModelOf
 import org.koin.dsl.module
 
@@ -14,4 +16,6 @@ val MarketplacePresentationModule = module {
     viewModelOf(::CreateListingViewModel)
     viewModelOf(::SellerDashboardViewModel)
     viewModelOf(::DisputeViewModel)
+    viewModelOf(::MyOrdersViewModel)
+    viewModelOf(::OrderTrackingViewModel)
 }

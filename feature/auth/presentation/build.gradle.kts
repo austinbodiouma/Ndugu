@@ -32,6 +32,9 @@ kotlin {
             implementation(libs.compose.ui)
             implementation(libs.compose.components.resources)
 
+            implementation(libs.coil.compose)
+            implementation(libs.coil.network.ktor)
+
             implementation(libs.kotlinx.coroutines.core)
             implementation(libs.kotlinx.serialization.json)
             implementation(libs.androidx.lifecycle.viewmodelCompose)

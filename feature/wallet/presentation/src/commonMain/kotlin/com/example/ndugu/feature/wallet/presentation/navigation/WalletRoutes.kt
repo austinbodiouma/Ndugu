@@ -19,3 +19,9 @@ data object RequestMoneyRoute
 
 @Serializable
 data object BudgetRoute
+
+@Serializable
+data object ProfileSettingsRoute
+
+@Serializable
+data object QrScannerRoute

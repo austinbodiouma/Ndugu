@@ -9,6 +9,8 @@ import com.example.ndugu.feature.wallet.presentation.budget.BudgetRoot
 import com.example.ndugu.feature.wallet.presentation.dashboard.WalletDashboardRoot
 import com.example.ndugu.feature.wallet.presentation.history.TransactionHistoryRoot
 import com.example.ndugu.feature.wallet.presentation.transactiondetail.TransactionDetailRoot
+import com.example.ndugu.feature.wallet.presentation.profile.ProfileSettingsRoot
+import com.example.ndugu.feature.wallet.presentation.qrscanner.QrScannerRoot
 
 fun NavGraphBuilder.walletGraph(
     navController: NavController,
@@ -44,6 +46,20 @@ fun NavGraphBuilder.walletGraph(
         composable<BudgetRoute> {
             BudgetRoot(
                 onNavigateBack = { navController.popBackStack() },
+            )
+        }
+        composable<ProfileSettingsRoute> {
+            ProfileSettingsRoot(
+                onNavigateBack = { navController.popBackStack() },
+                onNavigateToLogin = { /* TODO: Implement global logout/login nav */ }
+            )
+        }
+        composable<QrScannerRoute> {
+            QrScannerRoot(
+                onNavigateBack = { navController.popBackStack() },
+                onNavigateToPayment = { receiverId ->
+                    // TODO: Navigate to send money with receiverId
+                }
             )
         }
     }

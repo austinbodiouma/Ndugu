@@ -18,4 +18,10 @@ sealed interface MarketplaceRoute {
 
     @Serializable
     data object DisputeRoute : MarketplaceRoute
+
+    @Serializable
+    data object MyOrdersRoute : MarketplaceRoute
+
+    @Serializable
+    data class OrderTrackingRoute(val orderId: String) : MarketplaceRoute
 }

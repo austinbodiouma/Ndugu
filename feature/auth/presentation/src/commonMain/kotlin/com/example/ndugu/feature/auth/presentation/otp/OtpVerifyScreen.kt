@@ -26,8 +26,6 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.ndugu.core.designsystem.components.CWGradientButton
 import com.example.ndugu.core.designsystem.components.OtpInputField
-import com.example.ndugu.core.designsystem.theme.MaterialTheme.colorScheme.surface
-import com.example.ndugu.core.designsystem.theme.MaterialTheme.colorScheme.primary
 import com.example.ndugu.core.presentation.ObserveAsEvents
 import org.koin.compose.viewmodel.koinViewModel
 
