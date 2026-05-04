@@ -10,26 +10,45 @@ import java.net.URI
 object DatabaseFactory {
     fun init() {
         val databaseUrl = System.getenv("DATABASE_URL")
+        val dbHost = System.getenv("DB_HOST")
+        val dbPort = System.getenv("DB_PORT")
+        val dbName = System.getenv("DB_NAME")
+        val dbUser = System.getenv("DB_USER")
+        val dbPass = System.getenv("DB_PASS")
 
         val config = HikariConfig().apply {
             driverClassName = "org.postgresql.Driver"
-            if (databaseUrl != null) {
-                val uri = URI(databaseUrl.replace("postgres://", "postgresql://"))
-                val host = uri.host
-                val port = if (uri.port != -1) uri.port else 5432
-                val dbName = uri.path.removePrefix("/")
-                val query = uri.rawQuery?.let { "?$it" } ?: ""
+            
+            when {
+                databaseUrl != null -> {
+                    println("Initializing database using DATABASE_URL")
+                    val uri = URI(databaseUrl.replace("postgres://", "postgresql://"))
+                    val host = uri.host
+                    val port = if (uri.port != -1) uri.port else 5432
+                    val dbPath = uri.path.removePrefix("/")
+                    val query = uri.rawQuery?.let { "?$it" } ?: ""
 
-                jdbcUrl = "jdbc:postgresql://$host:$port/$dbName$query"
-                uri.userInfo?.let { userInfo ->
-                    val parts = userInfo.split(":")
-                    username = parts[0]
-                    if (parts.size > 1) password = parts[1]
+                    jdbcUrl = "jdbc:postgresql://$host:$port/$dbPath$query"
+                    uri.userInfo?.let { userInfo ->
+                        val parts = userInfo.split(":")
+                        username = parts[0]
+                        if (parts.size > 1) password = parts[1]
+                    }
                 }
-            } else {
-                jdbcUrl = "jdbc:postgresql://127.0.0.1:5444/ndugu_db"
-                username = System.getenv("DB_USER") ?: "ndugu_user"
-                password = System.getenv("DB_PASS") ?: "ndugu_password"
+                dbHost != null -> {
+                    println("Initializing database using individual DB_* variables")
+                    val port = dbPort ?: "5432"
+                    val name = dbName ?: "ndugu_db"
+                    jdbcUrl = "jdbc:postgresql://$dbHost:$port/$name"
+                    username = dbUser
+                    password = dbPass
+                }
+                else -> {
+                    println("Initializing database using local defaults (127.0.0.1)")
+                    jdbcUrl = "jdbc:postgresql://127.0.0.1:5444/ndugu_db"
+                    username = dbUser ?: "ndugu_user"
+                    password = dbPass ?: "ndugu_password"
+                }
             }
 
             maximumPoolSize = 2
