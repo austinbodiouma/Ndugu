@@ -8,12 +8,13 @@ data class StudentDto(
     val phone: String,
     val email: String,
     val fullName: String,
-    val isVerified: Boolean
+    val isVerified: Boolean,
+    val verificationStatus: String
 )
 
 @Serializable
-data class AuthDto(
+data class AuthResponseDto(
     val accessToken: String,
     val refreshToken: String,
-    val student: StudentDto
+    val studentId: String
 )

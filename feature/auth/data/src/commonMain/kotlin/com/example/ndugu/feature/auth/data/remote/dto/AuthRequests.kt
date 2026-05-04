@@ -18,10 +18,16 @@ data class LoginRequest(
 
 @Serializable
 data class VerifyOtpRequest(
+    val phone: String,
     val otp: String
 )
 
 @Serializable
 data class ResendOtpRequest(
     val phone: String
+)
+
+@Serializable
+data class RefreshRequest(
+    val refreshToken: String
 )

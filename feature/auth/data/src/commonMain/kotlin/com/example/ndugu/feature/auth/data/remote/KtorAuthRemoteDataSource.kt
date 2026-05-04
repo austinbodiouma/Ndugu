@@ -13,19 +13,19 @@ import io.ktor.client.request.setBody
 class KtorAuthRemoteDataSource(
     private val httpClient: HttpClient
 ) {
-    suspend fun register(request: RegisterRequest): Result<StudentDto, DataError.Network> {
+    suspend fun register(request: RegisterRequest): Result<RegisterResponseDto, DataError.Network> {
         return httpClient.safePost("/api/auth/register") {
             setBody(request)
         }
     }
 
-    suspend fun login(request: LoginRequest): Result<AuthDto, DataError.Network> {
+    suspend fun login(request: LoginRequest): Result<AuthResponseDto, DataError.Network> {
         return httpClient.safePost("/api/auth/login") {
             setBody(request)
         }
     }
 
-    suspend fun verifyOtp(request: VerifyOtpRequest): Result<AuthDto, DataError.Network> {
+    suspend fun verifyOtp(request: VerifyOtpRequest): Result<AuthResponseDto, DataError.Network> {
         return httpClient.safePost("/api/auth/verify-otp") {
             setBody(request)
         }

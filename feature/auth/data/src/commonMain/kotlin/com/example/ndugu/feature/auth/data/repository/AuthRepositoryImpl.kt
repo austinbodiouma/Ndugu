@@ -5,8 +5,7 @@ import com.example.ndugu.core.domain.util.DataError
 import com.example.ndugu.core.domain.util.Result
 import com.example.ndugu.core.domain.util.map
 import com.example.ndugu.core.domain.util.onSuccess
-import com.example.ndugu.feature.auth.data.mapper.toAuthToken
-import com.example.ndugu.feature.auth.data.mapper.toStudent
+import com.example.ndugu.feature.auth.data.mapper.toDomain
 import com.example.ndugu.feature.auth.data.remote.KtorAuthRemoteDataSource
 import com.example.ndugu.feature.auth.data.remote.dto.*
 import com.example.ndugu.feature.auth.domain.model.AuthToken
@@ -18,6 +17,8 @@ class AuthRepositoryImpl(
     private val tokenStorage: TokenStorage
 ) : AuthRepository {
 
+    private var currentPhone: String? = null
+
     override suspend fun register(
         phone: String,
         email: String,
@@ -25,7 +26,22 @@ class AuthRepositoryImpl(
         password: String
     ): Result<Student, DataError.Network> {
         val request = RegisterRequest(phone, email, fullName, password)
-        return remoteDataSource.register(request).map { it.toStudent() }
+        val result = remoteDataSource.register(request)
+        return when (result) {
+            is Result.Success -> {
+                currentPhone = phone
+                Result.Success(
+                    Student(
+                        id = result.data.id,
+                        phone = phone,
+                        email = email,
+                        fullName = fullName,
+                        isVerified = false
+                    )
+                )
+            }
+            is Result.Error -> Result.Error(result.error)
+        }
     }
 
     override suspend fun login(
@@ -38,24 +54,25 @@ class AuthRepositoryImpl(
                 tokenStorage.saveAuthTokens(
                     accessToken = dto.accessToken,
                     refreshToken = dto.refreshToken,
-                    userId = dto.student.id
+                    userId = dto.studentId
                 )
             }
-            .map { it.toAuthToken() }
+            .map { it.toDomain() }
     }
 
     override suspend fun verifyOtp(otp: String): Result<AuthToken, DataError.Network> {
-        val request = VerifyOtpRequest(otp)
+        val phone = currentPhone ?: return Result.Error(DataError.Network.UNKNOWN)
+        val request = VerifyOtpRequest(phone, otp)
         return remoteDataSource.verifyOtp(request)
             .onSuccess { dto ->
                 tokenStorage.saveAuthTokens(
                     accessToken = dto.accessToken,
                     refreshToken = dto.refreshToken,
-                    userId = dto.student.id
+                    userId = dto.studentId
                 )
                 tokenStorage.isVerified = true
             }
-            .map { it.toAuthToken() }
+            .map { it.toDomain() }
     }
 
     override suspend fun resendOtp(phone: String): Result<Unit, DataError.Network> {

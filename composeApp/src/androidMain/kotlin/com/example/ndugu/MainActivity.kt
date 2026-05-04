@@ -12,10 +12,14 @@ import com.example.ndugu.core.data.di.coreDataModule
 import com.example.ndugu.core.data.di.platformDataModule
 import com.example.ndugu.feature.auth.data.di.AuthDataModule
 import com.example.ndugu.feature.auth.presentation.di.AuthPresentationModule
+import com.example.ndugu.feature.marketplace.data.di.MarketplaceDataModule
 import com.example.ndugu.feature.marketplace.presentation.di.MarketplacePresentationModule
+import com.example.ndugu.feature.messaging.data.di.MessagingDataModule
 import com.example.ndugu.feature.messaging.presentation.di.MessagingPresentationModule
 import com.example.ndugu.feature.payment.presentation.di.PaymentPresentationModule
+import com.example.ndugu.feature.transfer.data.di.TransferDataModule
 import com.example.ndugu.feature.transfer.presentation.di.TransferPresentationModule
+import com.example.ndugu.feature.wallet.data.di.WalletDataModule
 import com.example.ndugu.feature.wallet.presentation.di.WalletPresentationModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
@@ -37,10 +41,14 @@ class MainActivity : ComponentActivity() {
                 platformDataModule(),
                 AuthDataModule,
                 AuthPresentationModule,
+                MarketplaceDataModule,
                 MarketplacePresentationModule,
+                MessagingDataModule,
                 MessagingPresentationModule,
                 PaymentPresentationModule,
+                TransferDataModule,
                 TransferPresentationModule,
+                WalletDataModule,
                 WalletPresentationModule
             ),
             appDeclaration = {
