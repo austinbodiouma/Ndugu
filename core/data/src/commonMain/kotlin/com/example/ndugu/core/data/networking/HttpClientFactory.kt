@@ -1,4 +1,6 @@
 package com.example.ndugu.core.data.networking
+ 
+import com.example.ndugu.BASE_URL_PHYSICAL
 
 import io.ktor.client.HttpClient
 import io.ktor.client.plugins.auth.Auth
@@ -22,7 +24,7 @@ import kotlinx.serialization.json.Json
  */
 fun createHttpClient(
     engine: io.ktor.client.engine.HttpClientEngineFactory<*>,
-    baseUrl: String = "http://10.0.2.2:8080", // Android emulator localhost
+    baseUrl: String = BASE_URL_PHYSICAL,
     tokenProvider: (suspend () -> BearerTokens?)? = null,
     tokenRefresher: (suspend () -> BearerTokens?)? = null
 ): HttpClient {

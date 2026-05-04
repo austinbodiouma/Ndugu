@@ -52,9 +52,11 @@ kotlin {
             
             // Core
             implementation(projects.core.designSystem)
+            implementation(projects.core.data)
 
             // Features
             implementation(projects.feature.auth.presentation)
+            implementation(projects.feature.auth.data)
             implementation(projects.feature.wallet.presentation)
             implementation(projects.feature.marketplace.presentation)
             implementation(projects.feature.messaging.presentation)

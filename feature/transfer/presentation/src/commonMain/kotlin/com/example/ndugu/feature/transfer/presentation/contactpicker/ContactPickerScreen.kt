@@ -1,3 +1,5 @@
+package com.example.ndugu.feature.transfer.presentation.contactpicker
+
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -35,11 +37,6 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil3.compose.AsyncImage
 import com.example.ndugu.core.presentation.ObserveAsEvents
-import com.example.ndugu.feature.transfer.presentation.contactpicker.ContactPickerAction
-import com.example.ndugu.feature.transfer.presentation.contactpicker.ContactPickerEvent
-import com.example.ndugu.feature.transfer.presentation.contactpicker.ContactPickerState
-import com.example.ndugu.feature.transfer.presentation.contactpicker.ContactPickerViewModel
-import com.example.ndugu.feature.transfer.presentation.contactpicker.ContactUi
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable

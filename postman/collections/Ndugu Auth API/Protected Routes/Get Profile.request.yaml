@@ -1,0 +1,23 @@
+$kind: http-request
+name: Get Profile (Authenticated)
+method: GET
+url: '{{baseUrl}}/api/profile'
+order: 1000
+headers:
+  - key: Authorization
+    value: 'Bearer {{accessToken}}'
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("Status code is 200 OK", function () {
+          pm.response.to.have.status(200);
+      });
+
+      pm.test("Response contains welcome message with student ID", function () {
+          pm.expect(pm.response.text()).to.include("Welcome student:");
+      });
+
+      pm.test("Response time is under 2000ms", function () {
+          pm.expect(pm.response.responseTime).to.be.below(2000);
+      });

@@ -1,0 +1,17 @@
+
+services:
+  db:
+    image: postgres:15
+    container_name: ndugu-db
+    restart: always
+    environment:
+      POSTGRES_USER: ndugu_user
+      POSTGRES_PASSWORD: ndugu_password
+      POSTGRES_DB: ndugu_db
+    ports:
+      - "5444:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:

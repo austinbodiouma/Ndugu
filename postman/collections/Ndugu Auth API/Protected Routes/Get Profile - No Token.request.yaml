@@ -1,0 +1,12 @@
+$kind: http-request
+name: Get Profile - No Token (Negative Test)
+method: GET
+url: '{{baseUrl}}/api/profile'
+order: 2000
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("Status code is 401 Unauthorized without token", function () {
+          pm.response.to.have.status(401);
+      });

@@ -1,0 +1,53 @@
+$kind: http-request
+name: Login
+method: POST
+url: '{{baseUrl}}/api/auth/login'
+order: 4000
+headers:
+  - key: Content-Type
+    value: application/json
+body:
+  type: json
+  content: |-
+    {
+      "phone": "+1234567890",
+      "password": "Password123!"
+    }
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("Status code is 200 OK", function () {
+          pm.response.to.have.status(200);
+      });
+
+      pm.test("Response contains accessToken and refreshToken", function () {
+          const json = pm.response.json();
+          pm.expect(json).to.have.property("accessToken");
+          pm.expect(json).to.have.property("refreshToken");
+          pm.expect(json.accessToken).to.be.a("string").and.not.empty;
+          pm.expect(json.refreshToken).to.be.a("string").and.not.empty;
+      });
+
+      pm.test("Response contains student object", function () {
+          const json = pm.response.json();
+          pm.expect(json).to.have.property("student");
+          pm.expect(json.student).to.have.property("id");
+          pm.expect(json.student).to.have.property("phone");
+          pm.expect(json.student).to.have.property("email");
+          pm.expect(json.student).to.have.property("fullName");
+          pm.expect(json.student).to.have.property("isVerified");
+      });
+
+      pm.test("Response time is under 2000ms", function () {
+          pm.expect(pm.response.responseTime).to.be.below(2000);
+      });
+
+      // Save tokens for use in subsequent requests
+      const json = pm.response.json();
+      if (json.accessToken) {
+          pm.collectionVariables.set("accessToken", json.accessToken);
+      }
+      if (json.refreshToken) {
+          pm.collectionVariables.set("refreshToken", json.refreshToken);
+      }

@@ -4,6 +4,7 @@ import com.example.ndugu.core.data.auth.TokenStorage
 import com.example.ndugu.core.data.networking.createHttpClient
 import com.russhwolf.settings.Settings
 import io.ktor.client.HttpClient
+import io.ktor.client.engine.HttpClientEngineFactory
 import io.ktor.client.plugins.auth.providers.BearerTokens
 import org.koin.core.module.Module
 import org.koin.dsl.module
@@ -13,17 +14,19 @@ import org.koin.dsl.module
  * Platform-specific modules must provide the Ktor engine factory.
  */
 val coreDataModule = module {
-    single<Settings> { Settings() }
+    single<Settings> { com.russhwolf.settings.Settings() }
     single { TokenStorage(get()) }
     single<HttpClient> {
         val tokenStorage: TokenStorage = get()
         createHttpClient(
-            engine = get(), // Platform-specific engine factory injected
+            engine = get<HttpClientEngineFactory<*>>(),
             tokenProvider = {
-                tokenStorage.accessToken?.let { access ->
-                    tokenStorage.refreshToken?.let { refresh ->
-                        BearerTokens(access, refresh)
-                    }
+                val access = tokenStorage.accessToken
+                val refresh = tokenStorage.refreshToken
+                if (access != null && refresh != null) {
+                    BearerTokens(access, refresh)
+                } else {
+                    null
                 }
             },
             tokenRefresher = {

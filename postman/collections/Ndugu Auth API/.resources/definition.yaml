@@ -1,0 +1,9 @@
+$kind: collection
+name: Ndugu Auth API
+variables:
+  - key: baseUrl
+    value: 'http://localhost:8080'
+  - key: accessToken
+    value: ''
+  - key: refreshToken
+    value: ''

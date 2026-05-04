@@ -8,6 +8,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 
 import com.example.ndugu.di.initKoin
+import com.example.ndugu.core.data.di.coreDataModule
+import com.example.ndugu.core.data.di.platformDataModule
+import com.example.ndugu.feature.auth.data.di.AuthDataModule
 import com.example.ndugu.feature.auth.presentation.di.AuthPresentationModule
 import com.example.ndugu.feature.marketplace.presentation.di.MarketplacePresentationModule
 import com.example.ndugu.feature.messaging.presentation.di.MessagingPresentationModule
@@ -30,6 +33,9 @@ class MainActivity : ComponentActivity() {
 
         initKoin(
             additionalModules = listOf(
+                coreDataModule,
+                platformDataModule(),
+                AuthDataModule,
                 AuthPresentationModule,
                 MarketplacePresentationModule,
                 MessagingPresentationModule,

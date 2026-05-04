@@ -1,0 +1,14 @@
+name: Production
+values:
+  - key: baseUrl
+    value: 'https://api.ndugu.com'
+    enabled: true
+    type: default
+  - key: accessToken
+    value: ''
+    enabled: true
+    type: default
+  - key: refreshToken
+    value: ''
+    enabled: true
+    type: default

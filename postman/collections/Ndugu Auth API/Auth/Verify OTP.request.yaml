@@ -1,0 +1,36 @@
+$kind: http-request
+name: Verify OTP
+method: POST
+url: '{{baseUrl}}/api/auth/verify-otp'
+order: 7000
+headers:
+  - key: Content-Type
+    value: application/json
+body:
+  type: json
+  content: |-
+    {
+      "otp": "123456"
+    }
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("Status code is 200 OK", function () {
+          pm.response.to.have.status(200);
+      });
+
+      pm.test("Response contains accessToken and refreshToken", function () {
+          const json = pm.response.json();
+          pm.expect(json).to.have.property("accessToken");
+          pm.expect(json).to.have.property("refreshToken");
+      });
+
+      pm.test("Student isVerified is true after OTP verification", function () {
+          const json = pm.response.json();
+          pm.expect(json.student.isVerified).to.be.true;
+      });
+
+      pm.test("Response time is under 2000ms", function () {
+          pm.expect(pm.response.responseTime).to.be.below(2000);
+      });

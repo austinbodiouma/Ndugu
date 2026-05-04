@@ -1,0 +1,21 @@
+$kind: http-request
+name: Register - Missing Fields (Negative Test)
+method: POST
+url: '{{baseUrl}}/api/auth/register'
+order: 3000
+headers:
+  - key: Content-Type
+    value: application/json
+body:
+  type: json
+  content: |-
+    {
+      "phone": "+9999999999"
+    }
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("Status code is 400 for missing required fields", function () {
+          pm.response.to.have.status(400);
+      });

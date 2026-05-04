@@ -1,0 +1,22 @@
+$kind: http-request
+name: Login - Non-existent User (Negative Test)
+method: POST
+url: '{{baseUrl}}/api/auth/login'
+order: 6000
+headers:
+  - key: Content-Type
+    value: application/json
+body:
+  type: json
+  content: |-
+    {
+      "phone": "+0000000000",
+      "password": "Password123!"
+    }
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("Status code is 401 for non-existent user", function () {
+          pm.response.to.have.status(401);
+      });
